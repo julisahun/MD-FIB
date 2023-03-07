@@ -2,7 +2,8 @@
 
 #Note: Take care to use "/" fo the directory file. "\" provides errors
 
-dd <- read.csv("./GPUS.csv", header = T, sep = ",")
+#dd <- read.csv("./GPUS.csv", header = T, sep = ",")
+dd <- read.csv("C:/Users/Cris/Desktop/UNI/MD/MD/practica1/GPUS.csv", header = T, sep = ",")
 attach(dd)
 #Missing data treatment
 
@@ -36,9 +37,13 @@ dim(dd[dd[c("HDMI_Connection")] == 0 & dd[c("DisplayPort_Connection")] == 0 & dd
 # vaya son muchas, quiza no :c
 
 sum(is.na(dd["Best_Resolution"]))
-resolution <- dd["Best_Resolution"]
-dd2 <- within(dd, Best_Resolution<-data.frame(do.call('rbind', strsplit(as.character(Best_Resolution), "x", fixed=TRUE))))
+
+install.packages("tidyr")
+library(tidyr)
+aux <- separate(data=dd, col=Best_Resolution, into = c("Best_Resolution_X", "Best_Resolution_Y"), sep="x")
+names(aux)
 head(dd2)
+attach(dd2)
 
 mean(dd2["Best_Resolution.X1"], na.rm=TRUE)
 
