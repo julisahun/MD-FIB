@@ -17,13 +17,17 @@ dd[dd == '-'] <- NA
 
 # Metainfo: Missing data represented by 0 in qualitative variables
 # DEALING WITH MISSINGS: Detect
-# pocas fillas missing de Architecture, a chuparla
+# poques files missing de Architecture, a chuparla
 dim(dd[dd[c("Architecture")] == 0,])
 dd <- dd[!is.na(dd[,1]),]
 
 #posem a 0 els NA dels ports
-dd[is.na(dd[c("DisplayPort_Connection")]), c("DisplayPort_Connection")] <- 0
-dd[is.na(dd[c("HDMI_Connection")]),c("HDMI_Connection")] <- 0
+dd$DisplayPort_Connection[is.na(dd$DisplayPort_Connection)] <- 0
+
+sum(is.na(dd[,c("DisplayPort_Connection")]))
+
+dd["DisplayPort_Connection"][is.na(dd["DisplayPort_Connection"])] <- 0
+dd[is.na(dd[c("HDMI_Connection")]), c("HDMI_Connection")] <- 0
 dd[is.na(dd[c("VGA_Connection")]), c("VGA_Connection")] <- 0
 dd[is.na(dd[c("DVI_Connection")]), c("DVI_Connection")] <- 0
 
@@ -31,23 +35,16 @@ dd[is.na(dd[c("DVI_Connection")]), c("DVI_Connection")] <- 0
 dim(dd[dd[c("HDMI_Connection")] == 0 & dd[c("DisplayPort_Connection")] == 0 & dd[c("DVI_Connection")] == 0 & dd[c("VGA_Connection")] == 0,])
 # vaya son muchas, quiza no :c
 
+sum(is.na(dd["Best_Resolution"]))
+resolution <- dd["Best_Resolution"]
+dd2 <- within(dd, Best_Resolution<-data.frame(do.call('rbind', strsplit(as.character(Best_Resolution), "x", fixed=TRUE))))
+head(dd2)
 
-#First substitute the strucural missings of qualitative variablesby corresponing 
-#meaningfull value
-Variable[VarCondicio == "\n"] <- ""
+mean(dd2["Best_Resolution.X1"], na.rm=TRUE)
 
-#For non structural missings in qualitative variables, just keep as a new modality. Only if required inpute or describe appart
-#you already have from previous treatment of factors
-levels(Vivienda)<-c(levels(Vivienda),"Unkviv")
-Vivienda[is.na(Vivienda)]<-"UnkViv"
-
-# Metainfo: (99999999 MISSING CODE for numerical variables, 0 for Antiguedad.Trabajo and Ingressos)
-# LOOK FOR MISSING VALUES AMONG THE CONTINUOUS VARIABLES 
-hist(Ingresos)
-summary(Ingresos)
-max(Ingresos)
-
-table(Ingresos == 99999999)
+names(dd2)
+table(is.na(DVI_Connection))
+table(DVI_Connection == 0)
 
 table(Patrimonio == 99999999)
 
