@@ -15,17 +15,19 @@ dd[dd == ''] <- NA
 dd[dd == '\n-'] <- NA
 dd[dd == '\n'] <- NA
 dd[dd == '-'] <- NA
+dd[dd == '\n- '] <- NA
 
 # Metainfo: Missing data represented by 0 in qualitative variables
 # DEALING WITH MISSINGS: Detect
 # poques files missing de Architecture, les eliminem
+
+######### ARCHITECTURE ############
 dim(dd[dd[c("Architecture")] == 0,])
 dd <- dd[!is.na(dd[,1]),]
 
+
+######### PORTS CONNECTIONS ############
 #posem a 0 els NA dels ports
-
-# sum(is.na(dd[,c("DisplayPort_Connection")]))
-
 dd["DisplayPort_Connection"][is.na(dd["DisplayPort_Connection"])] <- 0
 dd[is.na(dd[c("HDMI_Connection")]), c("HDMI_Connection")] <- 0
 dd[is.na(dd[c("VGA_Connection")]), c("VGA_Connection")] <- 0
@@ -36,10 +38,10 @@ dd[is.na(dd[c("DVI_Connection")]), c("DVI_Connection")] <- 0
 # si te tots els ports a 0 llavors es integrada
 # dd[is.na(dd[c("Dedicated")]), c("Dedicated")] <- "No"
 
-sum(is.na(dd["Integrated"]))
+######### INTEGRATED I DEDICATED ############
 # ens carreguem les rows que tenen na a la columna de dedicated (un total de 13 files)
 dd <- dd[!is.na(dd[,c("Dedicated")]),]
-# assignem a dedicated el resultat de comparar el valor de dedicated amb Yes, per tant convertim a boolean
+# assignem a dedicated i integrated el resultat de comparar el valor de dedicated amb Yes, per tant convertim a boolean
 dd$Dedicated <- (dd$Dedicated == "Yes")
 dd$Integrated <- (dd$Integrated == "Yes")
 
@@ -48,15 +50,44 @@ dd$Integrated <- (dd$Integrated == "Yes")
 # dim(dd[dd[c("HDMI_Connection")] == 0 & dd[c("DisplayPort_Connection")] == 0 & dd[c("DVI_Connection")] == 0 & dd[c("VGA_Connection")] == 0,])
 # dim(dd[dd[c("HDMI_Connection")] > 0 | dd[c("DisplayPort_Connection")] > 0 | dd[c("DVI_Connection")] > 0 | dd[c("VGA_Connection")] == 0,])
 
-# vaya son muchas, quiza no :c
-
-sum(is.na(dd["Best_Resolution"]))
-
+######### BEST_RESOLUTION ############
 install.packages("tidyr")
 library(tidyr)
-attach(dd)
-aux <- separate(data=dd, col=Best_Resolution, into = c("Best_Resolution_X", "Best_Resolution_Y"), sep=" x ")
-names(aux)
+# dividim la columna de Best Resolution en 2, una que diu les x i l'altra les y
+dd <- separate(data=dd, col=Best_Resolution, into = c("Best_Resolution_X", "Best_Resolution_Y"), sep=" x ")
+
+dd[is.na(dd[c("Best_Resolution_X")]), c("Best_Resolution_X")] <- -1
+dd[is.na(dd[c("Best_Resolution_Y")]), c("Best_Resolution_Y")] <- -1
+dd$Best_Resolution_X <- as.numeric(dd$Best_Resolution_X)
+dd$Best_Resolution_Y <- as.numeric(dd$Best_Resolution_Y)
+# els na els substituirem per la moda de la columna
+dd[-1 == (dd[c("Best_Resolution_X")]), c("Best_Resolution_X")] <- median(dd$Best_Resolution_X)
+dd[-1 == (dd[c("Best_Resolution_Y")]), c("Best_Resolution_Y")] <- median(dd$Best_Resolution_X)
+
+######### BOOST_CLOCK ############
+dd[is.na(dd[c("Boost_Clock")]), c("Boost_Clock")] <- -1
+dd$Boost_Clock <- gsub(' MHz','', dd$Boost_Clock)
+dd$Boost_Clock <- as.numeric(dd$Boost_Clock)
+
+sum(-1 == dd$Boost_Clock) # Hi ha 1893 valors de boost_clock a -1. Borrem columna?
+dd[-1 == (dd[c("Boost_Clock")]), c("Boost_Clock")] <- NA
+# dd[-1 == (dd[c("Boost_Clock")]), c("Boost_Clock")] <- median(dd$Boost_Clock)
+
+######### CORE_SPEED ############
+getmode <- function(v) {
+  uniqv <- unique(v)
+  uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+
+# canviem els valors que son NA per la moda de la columna
+dd[is.na(dd[c("Core_Speed")]), c("Core_Speed")] <- -1
+dd$Core_Speed <- gsub(' MHz','', dd$Core_Speed)
+dd$Core_Speed <- as.numeric(dd$Core_Speed)
+sum(-1 == dd$Core_Speed) # Hi ha 867 valors de core_speed a -1.
+
+aux <- dd[-1 != (dd[,c("Core_Speed")]),]
+dd[-1 == (dd[c("Core_Speed")]), c("Core_Speed")] <- getmode(aux$Core_Speed)
+
 
 table(is.na(DVI_Connection))
 table(DVI_Connection == 0)
