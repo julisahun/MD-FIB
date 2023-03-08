@@ -18,36 +18,46 @@ dd[dd == '-'] <- NA
 
 # Metainfo: Missing data represented by 0 in qualitative variables
 # DEALING WITH MISSINGS: Detect
-# poques files missing de Architecture, a chuparla
+# poques files missing de Architecture, les eliminem
 dim(dd[dd[c("Architecture")] == 0,])
 dd <- dd[!is.na(dd[,1]),]
 
 #posem a 0 els NA dels ports
-dd$DisplayPort_Connection[is.na(dd$DisplayPort_Connection)] <- 0
 
-sum(is.na(dd[,c("DisplayPort_Connection")]))
+# sum(is.na(dd[,c("DisplayPort_Connection")]))
 
 dd["DisplayPort_Connection"][is.na(dd["DisplayPort_Connection"])] <- 0
 dd[is.na(dd[c("HDMI_Connection")]), c("HDMI_Connection")] <- 0
 dd[is.na(dd[c("VGA_Connection")]), c("VGA_Connection")] <- 0
 dd[is.na(dd[c("DVI_Connection")]), c("DVI_Connection")] <- 0
 
+# si la grafica te algun dels ports i el valor de dedicated es na aleshores vol dir que es dedicada, posem valor Yes, 
+# dd[is.na(dd[c("Dedicated")]) & (dd[c("HDMI_Connection")] > 0 | dd[c("DisplayPort_Connection")] > 0 | dd[c("DVI_Connection")] > 0 | dd[c("VGA_Connection")] > 0), c("Dedicated")] <- "Yes"
+# si te tots els ports a 0 llavors es integrada
+# dd[is.na(dd[c("Dedicated")]), c("Dedicated")] <- "No"
+
+sum(is.na(dd["Integrated"]))
+# ens carreguem les rows que tenen na a la columna de dedicated (un total de 13 files)
+dd <- dd[!is.na(dd[,c("Dedicated")]),]
+# assignem a dedicated el resultat de comparar el valor de dedicated amb Yes, per tant convertim a boolean
+dd$Dedicated <- (dd$Dedicated == "Yes")
+dd$Integrated <- (dd$Integrated == "Yes")
+
+
 # vaya nos podemos cargar las filas que no tengan DP, HDMI, DVI o VGA??
-dim(dd[dd[c("HDMI_Connection")] == 0 & dd[c("DisplayPort_Connection")] == 0 & dd[c("DVI_Connection")] == 0 & dd[c("VGA_Connection")] == 0,])
+# dim(dd[dd[c("HDMI_Connection")] == 0 & dd[c("DisplayPort_Connection")] == 0 & dd[c("DVI_Connection")] == 0 & dd[c("VGA_Connection")] == 0,])
+# dim(dd[dd[c("HDMI_Connection")] > 0 | dd[c("DisplayPort_Connection")] > 0 | dd[c("DVI_Connection")] > 0 | dd[c("VGA_Connection")] == 0,])
+
 # vaya son muchas, quiza no :c
 
 sum(is.na(dd["Best_Resolution"]))
 
 install.packages("tidyr")
 library(tidyr)
-aux <- separate(data=dd, col=Best_Resolution, into = c("Best_Resolution_X", "Best_Resolution_Y"), sep="x")
+attach(dd)
+aux <- separate(data=dd, col=Best_Resolution, into = c("Best_Resolution_X", "Best_Resolution_Y"), sep=" x ")
 names(aux)
-head(dd2)
-attach(dd2)
 
-mean(dd2["Best_Resolution.X1"], na.rm=TRUE)
-
-names(dd2)
 table(is.na(DVI_Connection))
 table(DVI_Connection == 0)
 
