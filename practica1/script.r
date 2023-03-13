@@ -10,10 +10,8 @@ getmode <- function(v) {
 }
 
 #dd <- read.csv("./GPUS.csv", header = T, sep = ",")
-#dd <- read.csv("C:/Users/Cris/Desktop/UNI/MD/MD/practica1/GPUS.csv", header = T, sep = ",")
+dd <- read.csv("F:/FIB/optatives/MD-FIB/practica1/GPUS.csv", header = T, sep = ",")
 attach(dd)
-
-dd<-GPUS
 
 #Missing data treatment
 
@@ -55,10 +53,10 @@ dd$Integrated <- (dd$Integrated == "Yes")
 
 ######### BEST_RESOLUTION ############
 # We split the column of Best Resolution into two: Best_Resolution_W and Best_Resolution_H
-#dd <- separate(data=dd, col=Best_Resolution, into = c("Best_Resolution_X", "Best_Resolution_Y"), sep=" x ")
+dd <- separate(data=dd, col=Best_Resolution, into = c("Best_Resolution_X", "Best_Resolution_Y"), sep=" x ")
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!PROPOSTA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-dd[is.na(dd[c("Best_Resolution")]), c("Best_Resolution")] <- getmode(dd$Best_Resolution)
+#dd[is.na(dd[c("Best_Resolution")]), c("Best_Resolution")] <- getmode(dd$Best_Resolution)
 
 dd[is.na(dd[c("Best_Resolution_X")]), c("Best_Resolution_X")] <- -1
 dd[is.na(dd[c("Best_Resolution_Y")]), c("Best_Resolution_Y")] <- -1
@@ -90,176 +88,117 @@ aux <- dd[-1 != (dd[,c("Core_Speed")]),]
 dd[-1 == (dd[c("Core_Speed")]), c("Core_Speed")] <- getmode(aux$Core_Speed)
 
 
-table(is.na(DVI_Connection))
-table(DVI_Connection == 0)
-
-table(Patrimonio == 99999999)
-
-table(Cargas.patrimoniales == 99999999)
-
-table(Antiguedad.Trabajo == 0)
-
-table(Ingresos == 0)
-
-# The numerical vars have too much missing data. 
-# Corresponding rows cannot be deleted
-# Missing data treatment required
-
-#
-# Recode missing data to NA, including '0' in Incomes
-
-#Ingresos[Ingresos == 99999999 | Ingresos == 0] <- NA (No ho fem mai en general)
-Ingresos[Ingresos == 99999999] <- NA
-#els estructurals posar la condicio justa i substituir pel valor que correspongui
-Patrimonio[Patrimonio == 99999999] <- NA
-Cargas.patrimoniales[Cargas.patrimoniales == 99999999] <- NA
-
-
-#How to test randomness of missings? Test de little (ens el saltem)
-
-# WARNING: NOW dd[,10] Ingressos DOESNT HAVE THE SAME CONTENT
-
-hist(dd[,10])
-hist(Ingresos)
-summary(dd[,10])
-sd(dd[,10])
-summary(Ingresos)
-sd(dd[,10])
-sd(Ingresos, na.rm=TRUE)
-
-
-dd[,10]<-Ingresos
-hist(dd[,10])
-
-summary(dd[,10])
-summary(Ingresos)
-
-
-#start substituting the structural missing values.
-#with remaining, impute: Knn, MIMMI, MICE (multiple imputation, only if you know well)
-
-# IMPUTATION By THE 1NN
-
-library(class)
-
-# FOR EVERY INDIVIDUAL WITH MISSING Incomes LOOK FOR THE MOST SIMILAR INDIVIDUAL 
-# wrt REMAINING VARIABLES AND COPY THE VALUE OF INGRESSOS ON THE FIRST 
-#For more robustness average the values of k-NN in general (with small k)
-
-
-# For a single variable:
-# Build an artificial matrix with the full numerical variables
-
-fullVariables<-c(2,4,5,9,13,14)
-aux<-dd[,fullvariables]
-dim(aux)
-names(aux)
-
-# divide in rows that had missing incomes or not on the target variable to be imputed
-aux1 <- aux[!is.na(Ingresos),]
-dim(aux1)
-aux2 <- aux[is.na(Ingresos),]
-dim(aux2)
-
-#Find nns for aux2
-knn.ing = knn(aux1,aux2,Ingresos[!is.na(Ingresos)])   
-
-#CARE: neither aux1 nor aux2 can contain NAs
-
-
-#CARE: knn.ing is generated as a factor. 
-#Be sure to retrieve the correct values
-
-IngresosOriginal<-Ingresos
-Ingresos[is.na(Ingresos)] <- as.numeric(levels(knn.ing))
-
-
-hist(IngresosOriginal)
-summary(IngresosOriginal)
-
-hist(Ingresos)
-summary(Ingresos)
-
-#For several Variables: 
-
-#built indexes of numerical variables that require inputation
-
-#Cargas.patrimoniales (12), patrimoni (11), Ingressos (10)
-uncompleteVars<-c(10,11,12)
-
-#better if you sort them by increasing number of missing values
-
-fullVariables<-c(2,4,5,9,13,14)
-aux<-dd[,fullVariables]
-dim(aux)
-names(aux)
-
-for (k in uncompleteVars){
-  aux1 <- aux[!is.na(dd[,k]),]
-  dim(aux1) 
-  aux2 <- aux[is.na(dd[,k]),]
-  dim(aux2)
-
-  RefValues<- dd[!is.na(dd[,k]),k]
-  #Find nns for aux2
-  knn.values = knn(aux1,aux2,RefValues)   
-
-  #CARE: neither aux1 nor aux2 can contain NAs
-
-
-  #CARE: knn.ing is generated as a factor. 
-  #Be sure to retrieve the correct values
-
-  dd[is.na(dd[,k]),k] = as.numeric(as.character(knn.values))
-  fullVariables<-c(fullVariables, k)
-  aux<-dd[,fullVariables]
-}
-
-dim(dd)
-summary(dd)
-
-#knowledge-based Inputation 
-
-#MIMMI method?
-
-
-
-
-
-#check for outliers
-#how?
-
-
-#Transformations? In General avoid
-
-
-# Creation of new derived VARIABLES: ?FEATURE EXTRACTION?
-
-# RATIO OF FINANCEMENT 
-
-Rati_fin = 100*Importe.solicitado/Precio.del.bien.financiado
-
-hist(Rati_fin)
-
-# CAPACITY TO SAVE
-
-Estalvi <- (Ingresos-Gastos-(Cargas.patrimoniales/100))/(Importe.solicitado/Plazo)
-
-hist(Estalvi)
-
-
-
-
-# SAVING THE TRANSFORMATIONS IN A INTERNAL R FILE
-
-save.image("credsco_bin")
-
-names(dd)
-dd[,15]<-Estalvi
-dd[,16]<-Rati_fin
-names(dd)[15]<-"Estalvi"
-colnames(dd)[16]<-"RatiFin"
-
+######### MANUFACTURER  ############
+sum(is.na(dd$Manufacturer))
+length(unique(dd$Manufacturer))
+
+######### MAX_POWER  ############
+sum(is.na(dd$Max_Power)) #574 nulls
+dd[is.na(dd[c("Max_Power")]), c("Max_Power")] <- -1
+dd$Max_Power <- gsub(' Watts','', dd$Max_Power)
+dd$Max_Power <- as.numeric(dd$Max_Power)
+
+aux <- dd[-1 != (dd[,c("Max_Power")]),]
+dd[-1 == (dd[c("Max_Power")]), c("Max_Power")] <- getmode(aux$Max_Power)
+
+######### MEMORY  ############
+sum(is.na(dd$Memory)) #376 nulls
+dd[is.na(dd[c("Memory")]), c("Memory")] <- -1
+dd$Memory <- gsub(' MB','', dd$Memory)
+dd$Memory <- as.numeric(dd$Memory)
+
+aux <- dd[-1 != (dd[,c("Memory")]),]
+dd[-1 == (dd[c("Memory")]), c("Memory")] <- getmode(aux$Memory)
+
+
+######### MEMORY_BRANDWIDTH ############
+sum(is.na(dd$Memory_Bandwidth)) #82 nulls
+dd[is.na(dd[c("Memory_Bandwidth")]), c("Memory_Bandwidth")] <- -1
+dd$Memory_Bandwidth <- gsub('GB/sec','', dd$Memory_Bandwidth)
+dd$Memory_Bandwidth <- as.numeric(dd$Memory_Bandwidth)
+
+aux <- dd[-1 != (dd[,c("Memory_Bandwidth")]),]
+dd[-1 == (dd[c("Memory_Bandwidth")]), c("Memory_Bandwidth")] <- getmode(aux$Memory_Bandwidth)
+
+######### MEMORY_BUS ############
+sum(is.na(dd$Memory_Bus)) #30 nulls
+dd$Memory_Bus <- gsub(' Bit','', dd$Memory_Bus)
+dd$Memory_Bus <- as.numeric(dd$Memory_Bus)
+
+aux <- dd[!is.na(dd[,c("Memory_Bus")]),]
+dd[is.na(dd[c("Memory_Bus")]), c("Memory_Bus")] <- getmode(aux$Memory_Bus)
+
+######### MEMORY_SPEED ############
+sum(is.na(dd$Memory_Speed)) #73 nulls
+dd$Memory_Speed <- gsub(' MHz','', dd$Memory_Speed)
+dd$Memory_Speed <- as.numeric(dd$Memory_Speed)
+
+aux <- dd[!is.na(dd[,c("Memory_Speed")]),]
+dd[is.na(dd[c("Memory_Speed")]), c("Memory_Speed")] <- getmode(aux$Memory_Speed)
+
+######### MEMORY_TYPE ############
+sum(is.na(dd$Memory_Type)) #23 nulls
+dd[is.na(dd[c("Memory_Type")]), c("Memory_Type")] <- "Undefined"
+
+######### NOTEBOOK_GPU ############
+sum(is.na(dd$Notebook_GPU)) #0 nulls
+dd$Notebook_GPU <- (dd$Notebook_GPU == "Yes")
+
+######### OPEN_GL ############
+sum(is.na(dd$Open_GL)) #22 nulls
+#Mirar si inferim, si posem 0 o que fem
+
+######### PIXEL_RATE ############
+sum(is.na(dd$Pixel_Rate)) #480 nulls
+dd$Pixel_Rate <- gsub(' GPixel/s','', dd$Pixel_Rate)
+dd$Pixel_Rate <- as.numeric(dd$Pixel_Rate)
+
+aux <- dd[!is.na(dd[,c("Pixel_Rate")]),]
+dd[is.na(dd[c("Pixel_Rate")]), c("Pixel_Rate")] <- getmode(aux$Pixel_Rate) #mirar que fem
+
+######### Process ############
+sum(is.na(dd$Process)) #402 nulls
+dd$Process <- gsub('nm','', dd$Process)
+dd$Process <- as.numeric(dd$Process)
+
+aux <- dd[!is.na(dd[,c("Process")]),]
+dd[is.na(dd[c("Process")]), c("Process")] <- getmode(aux$Process) #mirar que fem
+
+######### ROPs ############
+sum(is.na(dd$ROPs)) #475 nulls
+# te multiplicacio. Veure que fem
+
+######### Release_Date ############
+sum(is.na(dd$Release_Date)) #0 nulls
+dd$Release_Date <- gsub(' ','', dd$Release_Date)
+dates <- as.Date(dd$Release_Date, "%d-%b-%Y")
+#dd$Release_Date <- as.Date(dd$Release_Date, "%d-%b-%Y") # no funciona. Ho posa a NA
+
+######### Release_Price ############
+sum(is.na(dd$Release_Price)) #2783 nulls. 
+dd$Release_Price <- NULL #Ens carreguem la columna?
+
+######### SLI_Crossfire ############
+sum(is.na(dd$SLI_Crossfire)) # 0 nulls
+dd$SLI_Crossfire <- (dd$SLI_Crossfire == "Yes")
+
+######### Shader ############
+sum(is.na(dd$Shader)) # 89 nulls
+aux <- dd[!is.na(dd[,c("Shader")]),]
+dd[is.na(dd[c("Shader")]), c("Shader")] <- getmode(aux$Shader)
+
+######### TMUs ############
+sum(is.na(dd$TMUs)) # 475 nulls
+aux <- dd[!is.na(dd[,c("TMUs")]),]
+dd[is.na(dd[c("TMUs")]), c("TMUs")] <- getmode(aux$TMUs) #mirar que fem
+
+######### Texture_Rate ############
+sum(is.na(dd$Texture_Rate)) # 480 nulls
+dd$Texture_Rate <- gsub(' GTexel/s','', dd$Texture_Rate)
+dd$Texture_Rate <- as.numeric(dd$Texture_Rate)
+
+aux <- dd[!is.na(dd[,c("Texture_Rate")]),]
+dd[is.na(dd[c("Texture_Rate")]), c("Texture_Rate")] <- getmode(aux$Texture_Rate) #mirar que fem
 
 #saving the dataframe in an external file
 write.table(dd, file = "credscoClean.csv", sep = ";", na = "NA", dec = ".", row.names = FALSE, col.names = TRUE)
