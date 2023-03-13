@@ -1,10 +1,20 @@
-#  READING CREDSCO.CSV. NOTE: Change the path of the file for the proper one in your computer
+# Script used to preprocess data from GPUS.csv
+######### LIBRARIES ############
+install.packages("tidyr")
+library(tidyr)
 
-#Note: Take care to use "/" fo the directory file. "\" provides errors
+######### METHODS ############
+getmode <- function(v) {
+  uniqv <- unique(v)
+  uniqv[which.max(tabulate(match(v, uniqv)))]
+}
 
 #dd <- read.csv("./GPUS.csv", header = T, sep = ",")
-dd <- read.csv("C:/Users/Cris/Desktop/UNI/MD/MD/practica1/GPUS.csv", header = T, sep = ",")
+#dd <- read.csv("C:/Users/Cris/Desktop/UNI/MD/MD/practica1/GPUS.csv", header = T, sep = ",")
 attach(dd)
+
+dd<-GPUS
+
 #Missing data treatment
 
 #Detect
@@ -22,17 +32,26 @@ dd[dd == '\n- '] <- NA
 # poques files missing de Architecture, les eliminem
 
 ######### ARCHITECTURE ############
+<<<<<<< Updated upstream
+=======
+# We decided to remove rows that haven't a value to Architecture feature
+>>>>>>> Stashed changes
 dim(dd[dd[c("Architecture")] == 0,])
 dd <- dd[!is.na(dd[,1]),]
 
 
 ######### PORTS CONNECTIONS ############
+<<<<<<< Updated upstream
 #posem a 0 els NA dels ports
+=======
+# Imputation to 0 to ports connection that have a NA value
+>>>>>>> Stashed changes
 dd["DisplayPort_Connection"][is.na(dd["DisplayPort_Connection"])] <- 0
 dd[is.na(dd[c("HDMI_Connection")]), c("HDMI_Connection")] <- 0
 dd[is.na(dd[c("VGA_Connection")]), c("VGA_Connection")] <- 0
 dd[is.na(dd[c("DVI_Connection")]), c("DVI_Connection")] <- 0
 
+<<<<<<< Updated upstream
 # si la grafica te algun dels ports i el valor de dedicated es na aleshores vol dir que es dedicada, posem valor Yes, 
 # dd[is.na(dd[c("Dedicated")]) & (dd[c("HDMI_Connection")] > 0 | dd[c("DisplayPort_Connection")] > 0 | dd[c("DVI_Connection")] > 0 | dd[c("VGA_Connection")] > 0), c("Dedicated")] <- "Yes"
 # si te tots els ports a 0 llavors es integrada
@@ -88,6 +107,53 @@ sum(-1 == dd$Core_Speed) # Hi ha 867 valors de core_speed a -1.
 aux <- dd[-1 != (dd[,c("Core_Speed")]),]
 dd[-1 == (dd[c("Core_Speed")]), c("Core_Speed")] <- getmode(aux$Core_Speed)
 
+=======
+
+######### INTEGRATED I DEDICATED ############
+# We remove instances of GPUS that has an NA value in dedicated column
+dd <- dd[!is.na(dd[,c("Dedicated")]),]
+# Transformation of columns Dedicated and Integrated to boolean types
+dd$Dedicated <- (dd$Dedicated == "Yes")
+dd$Integrated <- (dd$Integrated == "Yes")
+
+
+######### BEST_RESOLUTION ############
+# We split the column of Best Resolution into two: Best_Resolution_W and Best_Resolution_H
+#dd <- separate(data=dd, col=Best_Resolution, into = c("Best_Resolution_X", "Best_Resolution_Y"), sep=" x ")
+
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!PROPOSTA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+dd[is.na(dd[c("Best_Resolution")]), c("Best_Resolution")] <- getmode(dd$Best_Resolution)
+
+dd[is.na(dd[c("Best_Resolution_X")]), c("Best_Resolution_X")] <- -1
+dd[is.na(dd[c("Best_Resolution_Y")]), c("Best_Resolution_Y")] <- -1
+dd$Best_Resolution_X <- as.numeric(dd$Best_Resolution_X)
+dd$Best_Resolution_Y <- as.numeric(dd$Best_Resolution_Y)
+# els na els substituirem per la moda de la columna
+dd[-1 == (dd[c("Best_Resolution_X")]), c("Best_Resolution_X")] <- median(dd$Best_Resolution_X)
+dd[-1 == (dd[c("Best_Resolution_Y")]), c("Best_Resolution_Y")] <- median(dd$Best_Resolution_X)
+
+######### BOOST_CLOCK ############
+dd[is.na(dd[c("Boost_Clock")]), c("Boost_Clock")] <- -1
+dd$Boost_Clock <- gsub(' MHz','', dd$Boost_Clock)
+dd$Boost_Clock <- as.numeric(dd$Boost_Clock)
+
+sum(-1 == dd$Boost_Clock) # Hi ha 1893 valors de boost_clock a -1. Borrem columna?
+dd[-1 == (dd[c("Boost_Clock")]), c("Boost_Clock")] <- NA
+# dd[-1 == (dd[c("Boost_Clock")]), c("Boost_Clock")] <- median(dd$Boost_Clock)
+
+######### CORE_SPEED ############
+
+
+# canviem els valors que son NA per la moda de la columna
+dd[is.na(dd[c("Core_Speed")]), c("Core_Speed")] <- -1
+dd$Core_Speed <- gsub(' MHz','', dd$Core_Speed)
+dd$Core_Speed <- as.numeric(dd$Core_Speed)
+sum(-1 == dd$Core_Speed) # Hi ha 867 valors de core_speed a -1.
+
+aux <- dd[-1 != (dd[,c("Core_Speed")]),]
+dd[-1 == (dd[c("Core_Speed")]), c("Core_Speed")] <- getmode(aux$Core_Speed)
+
+>>>>>>> Stashed changes
 
 table(is.na(DVI_Connection))
 table(DVI_Connection == 0)
