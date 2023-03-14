@@ -63,6 +63,8 @@ gpus <- select(gpus, -c("Release_Price"))
 
 ########################################################################
 
+########################## FEATURE IMPUTATION ##########################
+
 ######### ARCHITECTURE ############
 sum(is.na(gpus$Architecture))
 gpus[is.na(gpus$Architecture), c("Architecture")] <- "Unknown"
@@ -261,7 +263,7 @@ imputed_data
 # imputedValues <- knn(gpus[, c("Architecture", "Release_Date")], gpus[, c("Architecture", "Release_Date")], gpus$Release_Date, k = 3)
 # gpus$Release_Date <- ifelse(is.na(gpus$Release_Date), imputedValues, gpus$Release_Date)
 
-
+########################################################################
 
 # SAVING THE DATASET PREPROCESSED
 write.table(gpus, file = "preprocessed_GPUs.csv", sep = ";", na = "NA", dec = ".", row.names = FALSE, col.names = TRUE)
