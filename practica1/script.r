@@ -89,13 +89,14 @@ gpus$Integrated <- (gpus$Integrated == "Yes")
 # We split the column of Best Resolution into two: 
 #Best_Resolution_X and Best_Resolution_Y
 gpus <- separate(data=gpus, col=Best_Resolution, into = c("Best_Resolution_X", "Best_Resolution_Y"), sep=" x ")
-gpus[is.na(gpus[c("Best_Resolution_X")]), c("Best_Resolution_X")] <- -1
-gpus[is.na(gpus[c("Best_Resolution_Y")]), c("Best_Resolution_Y")] <- -1
 gpus$Best_Resolution_X <- as.numeric(gpus$Best_Resolution_X)
 gpus$Best_Resolution_Y <- as.numeric(gpus$Best_Resolution_Y)
 # els na els substituirem per la moda de la columna
-gpus[-1 == (gpus[c("Best_Resolution_X")]), c("Best_Resolution_X")] <- median(gpus$Best_Resolution_X)
-gpus[-1 == (gpus[c("Best_Resolution_Y")]), c("Best_Resolution_Y")] <- median(gpus$Best_Resolution_X)
+
+aux <- gpus[!is.na(gpus[,c("Best_Resolution_X")]),]
+gpus[is.na(gpus[c("Best_Resolution_X")]), c("Best_Resolution_X")] <- median(aux$Best_Resolution_X)
+aux <- gpus[!is.na(gpus[,c("Best_Resolution_Y")]),]
+gpus[is.na(gpus[c("Best_Resolution_Y")]), c("Best_Resolution_Y")] <- median(aux$Best_Resolution_Y)
 
 
 ######### CORE_SPEED ############
@@ -250,6 +251,9 @@ gpus$Texture_Rate <- as.numeric(gpus$Texture_Rate)
 aux <- gpus[!is.na(gpus[,c("Texture_Rate")]),]
 gpus[is.na(gpus[c("Texture_Rate")]), c("Texture_Rate")] <- getmode(aux$Texture_Rate) #mirar que fem
 
+######### PSU ############
+sum(is.na(gpus$PSU)) 
+sum(is.na(gpus$PSU) & (gpus$Integrated))
 
 ######### REALESE_DATE ############
 # replace "Unknown Release Date" with NA
@@ -267,3 +271,4 @@ imputed_data
 
 # SAVING THE DATASET PREPROCESSED
 write.table(gpus, file = "preprocessed_GPUs.csv", sep = ";", na = "NA", dec = ".", row.names = FALSE, col.names = TRUE)
+
