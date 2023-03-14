@@ -1,7 +1,10 @@
 # Script used to preprocess data from GPUS.csv
+
 ######### LIBRARIES ############
 install.packages("tidyr")
 install.packages('dplyr')
+install.packages("naniar")  
+library(naniar)                  
 library(tidyr)
 library(dplyr)
 
@@ -14,30 +17,38 @@ getmode <- function(v) {
 fillWithMode <- function(gpus, column) {
   gpus[is.na(gpus[c(column)]), c(column)] <- getmode(gpus$column)
 }
-path <- "F:/FIB/optatives/MD-FIB/practica1/GPUS.csv"
 
+######### IMPORT DATA ############
+path <- "/Users/mariamontalvofalcon/Desktop/MD-FIB/practica1/GPUS.csv"
 gpus <- read.csv(path, header = T, sep = ",")
 attach(gpus)
-
-
-#Missing data treatment
-
-#Detect
 names(gpus)
 
-# missing values come in diferent shape, we set them all as "NA"
+
+#----------------------------------------------------MISSING DATA TREATMENT
+
+
+# missing values come in difFerent shape, we set them all as "NA"
 gpus[gpus == ''] <- NA
 gpus[gpus == '\n-'] <- NA
 gpus[gpus == '\n'] <- NA
 gpus[gpus == '-'] <- NA
 gpus[gpus == '\n- '] <- NA
 
+# Visualisation of missing data
+colSums(is.na(gpus)) / nrow(gpus)  
+vis_miss(gpus)
 
 
 ######### ARCHITECTURE ############
-# few missing values in Architecture column so, we decided to remove rows that haven't a value to Architecture feature
+# few missing values in Architecture column so, we decided to remove rows that 
+#haven't a value to Architecture feature
 dim(gpus[gpus[c("Architecture")] == 0,])
 gpus <- gpus[!is.na(gpus[,1]),]
+
+######### ARCHITECTURE 2 ############
+sum(is.na(gpus$Direct_X))
+gpus[is.na(gpus$Architecture), c("Architecture")] <- "Unknown"
 
 
 ######### PORTS CONNECTIONS ############
