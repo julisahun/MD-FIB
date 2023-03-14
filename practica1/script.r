@@ -1,12 +1,18 @@
 # Script used to preprocess data from GPUS.csv
 
+################################# ENVIRONMENT ##################################
+
 ######### LIBRARIES ############
 install.packages("tidyr")
 install.packages('dplyr')
 install.packages("naniar")  
-library(naniar)                  
+install.packages("impute")  
+install.packages("mice")  
 library(tidyr)
 library(dplyr)
+library(naniar)
+library(impute)
+library(mice)
 
 ######### METHODS ############
 getmode <- function(v) {
@@ -24,8 +30,7 @@ gpus <- read.csv(path, header = T, sep = ",")
 attach(gpus)
 names(gpus)
 
-
-#----------------------------------------------------MISSING DATA TREATMENT
+############################ MISSING DATA TREATMENT ############################
 
 
 # missing values come in difFerent shape, we set them all as "NA"
@@ -39,21 +44,32 @@ gpus[gpus == '\n- '] <- NA
 colSums(is.na(gpus)) / nrow(gpus)  
 vis_miss(gpus)
 
+########################### FEATURE DELETION ###########################
+
+# Deleted columns: Boost_Clock, DisplayPort_Connection and Release_Price 
+# because high percentage of NA
+
+######### BOOST_CLOCK ############
+sum(is.na(gpus$Boost_Clock)) # There's 1960 missing values
+gpus <- select(gpus, -c("Boost_Clock"))
+
+######### DISPLAYPORT_CONNECTION ############
+sum(is.na(gpus$DisplayPort_Connection)) # There's 2549 missing values
+gpus <- select(gpus, -c("DisplayPort_Connection"))
+
+######### RELEASE_PRICE ############
+sum(is.na(gpus$Release_Price)) # There's 2850 missing values --> delete column
+gpus <- select(gpus, -c("Release_Price"))
+
+########################################################################
 
 ######### ARCHITECTURE ############
-# few missing values in Architecture column so, we decided to remove rows that 
-#haven't a value to Architecture feature
-dim(gpus[gpus[c("Architecture")] == 0,])
-gpus <- gpus[!is.na(gpus[,1]),]
-
-######### ARCHITECTURE 2 ############
 sum(is.na(gpus$Architecture))
 gpus[is.na(gpus$Architecture), c("Architecture")] <- "Unknown"
 
 
 ######### PORTS CONNECTIONS ############
 # Imputation to 0 to ports connection that have a NA value
-gpus["DisplayPort_Connection"][is.na(gpus["DisplayPort_Connection"])] <- 0
 gpus[is.na(gpus[c("HDMI_Connection")]), c("HDMI_Connection")] <- 0
 gpus[is.na(gpus[c("VGA_Connection")]), c("VGA_Connection")] <- 0
 gpus[is.na(gpus[c("DVI_Connection")]), c("DVI_Connection")] <- 0
@@ -68,7 +84,8 @@ gpus$Integrated <- (gpus$Integrated == "Yes")
 
 
 ######### BEST_RESOLUTION ############
-# We split the column of Best Resolution into two: Best_Resolution_W and Best_Resolution_H
+# We split the column of Best Resolution into two: 
+#Best_Resolution_X and Best_Resolution_Y
 gpus <- separate(data=gpus, col=Best_Resolution, into = c("Best_Resolution_X", "Best_Resolution_Y"), sep=" x ")
 gpus[is.na(gpus[c("Best_Resolution_X")]), c("Best_Resolution_X")] <- -1
 gpus[is.na(gpus[c("Best_Resolution_Y")]), c("Best_Resolution_Y")] <- -1
@@ -78,9 +95,6 @@ gpus$Best_Resolution_Y <- as.numeric(gpus$Best_Resolution_Y)
 gpus[-1 == (gpus[c("Best_Resolution_X")]), c("Best_Resolution_X")] <- median(gpus$Best_Resolution_X)
 gpus[-1 == (gpus[c("Best_Resolution_Y")]), c("Best_Resolution_Y")] <- median(gpus$Best_Resolution_X)
 
-######### BOOST_CLOCK ############
-sum(is.na(gpus$Boost_Clock)) # There's 1893 missing values --> delete column
-gpus <- select(gpus, -c("Boost_Clock"))
 
 ######### CORE_SPEED ############
 sum(is.na(gpus$Core_Speed))
@@ -192,7 +206,7 @@ gpus$Pixel_Rate <- as.numeric(gpus$Pixel_Rate)
 aux <- gpus[!is.na(gpus[,c("Pixel_Rate")]),]
 gpus[is.na(gpus[c("Pixel_Rate")]), c("Pixel_Rate")] <- getmode(aux$Pixel_Rate) #mirar que fem
 
-######### Process ############
+######### PROCESS ############
 sum(is.na(gpus$Process)) #402 nulls
 gpus$Process <- gsub('nm','', gpus$Process)
 gpus$Process <- as.numeric(gpus$Process)
@@ -204,22 +218,19 @@ gpus[is.na(gpus[c("Process")]), c("Process")] <- getmode(aux$Process) #mirar que
 sum(is.na(gpus$ROPs)) #475 nulls
 # te multiplicacio. Veure que fem
 
-######### Release_Date ############
+######### RELEASE_DATE ############
 sum(is.na(gpus$Release_Date)) #0 nulls
 gpus$Release_Date <- gsub(' ','', gpus$Release_Date)
 dates <- as.Date(gpus$Release_Date, "%d-%b-%Y")
 #gpus$Release_Date <- as.Date(gpus$Release_Date, "%d-%b-%Y") # no funciona. Ho posa a NA
 
-######### Release_Price ############
-sum(is.na(gpus$Release_Price)) #2783 nulls. 
-gpus$Release_Price <- NULL #Ens carreguem la columna?
 
-######### SLI_Crossfire ############
+######### SLI_CROSSFIRE ############
 sum(is.na(gpus$SLI_Crossfire)) # 0 nulls
 gpus$SLI_Crossfire <- (gpus$SLI_Crossfire == "Yes")
 
 
-######### Shader ############
+######### SHADER ############
 sum(is.na(gpus$Shader)) # 89 nulls
 aux <- gpus[!is.na(gpus[,c("Shader")]),]
 gpus[is.na(gpus[c("Shader")]), c("Shader")] <- getmode(aux$Shader)
@@ -229,7 +240,7 @@ sum(is.na(gpus$TMUs)) # 475 nulls
 aux <- gpus[!is.na(gpus[,c("TMUs")]),]
 gpus[is.na(gpus[c("TMUs")]), c("TMUs")] <- getmode(aux$TMUs) #mirar que fem
 
-######### Texture_Rate ############
+######### TEXTURE_RATE ############
 sum(is.na(gpus$Texture_Rate)) # 480 nulls
 gpus$Texture_Rate <- gsub(' GTexel/s','', gpus$Texture_Rate)
 gpus$Texture_Rate <- as.numeric(gpus$Texture_Rate)
@@ -238,7 +249,19 @@ aux <- gpus[!is.na(gpus[,c("Texture_Rate")]),]
 gpus[is.na(gpus[c("Texture_Rate")]), c("Texture_Rate")] <- getmode(aux$Texture_Rate) #mirar que fem
 
 
+######### REALESE_DATE ############
+# replace "Unknown Release Date" with NA
+gpus$Release_Date <- ifelse(grepl("Unknown Release Date", gpus$Release_Date), NA, gpus$Release_Date)
+imputed_values <- mice(gpus, method = "pmm", m = 5)
+imputed_data <- complete(imputed_values)
+imputed_data
+
+# sum(grepl("Unknown Release Date", gpus$Release_Date))
+# gpus$Release_Date <- ifelse(grepl("Unknown Release Date", gpus$Release_Date), NA, gpus$Release_Date)
+# imputedValues <- knn(gpus[, c("Architecture", "Release_Date")], gpus[, c("Architecture", "Release_Date")], gpus$Release_Date, k = 3)
+# gpus$Release_Date <- ifelse(is.na(gpus$Release_Date), imputedValues, gpus$Release_Date)
 
 
-#saving the dataframe in an external file
+
+# SAVING THE DATASET PREPROCESSED
 write.table(gpus, file = "preprocessed_GPUs.csv", sep = ";", na = "NA", dec = ".", row.names = FALSE, col.names = TRUE)
