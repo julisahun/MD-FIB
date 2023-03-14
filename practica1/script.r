@@ -47,7 +47,7 @@ dim(gpus[gpus[c("Architecture")] == 0,])
 gpus <- gpus[!is.na(gpus[,1]),]
 
 ######### ARCHITECTURE 2 ############
-sum(is.na(gpus$Direct_X))
+sum(is.na(gpus$Architecture))
 gpus[is.na(gpus$Architecture), c("Architecture")] <- "Unknown"
 
 
