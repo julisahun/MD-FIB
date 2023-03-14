@@ -8,13 +8,11 @@ install.packages('dplyr')
 install.packages("naniar")  
 install.packages("impute")  
 install.packages("mice")  
-install.packages("stringr") 
 library(tidyr)
 library(dplyr)
 library(naniar)
 library(impute)
 library(mice)
-library(stringr) 
 ######### METHODS ############
 getmode <- function(v) {
   uniqv <- unique(v)
@@ -22,7 +20,7 @@ getmode <- function(v) {
 }
 
 ######### IMPORT DATA ############
-path <- "F:/FIB/optatives/MD-FIB/practica1/GPUS.csv"
+path <- "CHANGE/PATH/MD-FIB/practica1/GPUS.csv"
 gpus <- read.csv(path, header = T, sep = ",")
 attach(gpus)
 names(gpus)
