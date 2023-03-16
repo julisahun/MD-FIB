@@ -6,17 +6,11 @@
 install.packages("tidyr")
 install.packages('dplyr')
 install.packages("naniar")
-install.packages("mice")  
 install.packages("readr")  
-install.packages("class")
-install.packages("ggplot2")
 library(tidyr)
 library(dplyr)
 library(naniar)
-library(mice)
 library(readr)
-library(class)
-library(ggplot2)
 ######### METHODS ############
 getmode <- function(v) {
   uniqv <- unique(v)
@@ -24,7 +18,7 @@ getmode <- function(v) {
 }
 
 ######### IMPORT DATA ############
-path <- "C:/Users/Cris/Desktop/UNI/MD-FIB/practica1/GPUS.csv"
+path <- "/Users/mariamontalvofalcon/Desktop/MD-FIB/practica1/GPUS.csv"
 gpus <- read.csv(path, header = T, sep = ",")
 attach(gpus)
 names(gpus)
@@ -283,21 +277,10 @@ gpus$Release_Date <- ifelse(grepl("Unknown Release Date", gpus$Release_Date), NA
 gpus$Release_Date <- gsub('-','/',gsub(' ','',gsub('Dec','12',gsub('Nov','11',gsub('Oct','10',gsub('Sep','09',gsub('Aug','08',gsub('Jul','07',gsub('Jun','06',gsub('May','05',gsub('Apr','04',gsub('Mar','03', gsub('Feb','02',gsub('Jan','01',gpus$Release_Date))))))))))))))
 tmp <- parse_datetime(gpus$Release_Date, format="%d/%m/%Y")
 gpus$Release_Date <- as.Date(tmp)
-
-fullVariables<-c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,28,29,30,31,32,33,34)
-aux<-gpus[,fullVariables]
-dim(aux)
-names(aux)
-sum(is.na(gpus$Best_Resolution_X))
-
-aux1 <- aux[!is.na(gpus[,c("Release_Date")]),]
-aux2 <- aux[is.na(gpus[,c("Release_Date")]),]
-knn.ing = knn(aux1,aux2,Release_Date[!is.na(Release_Date)]) 
-
-
+aux <- gpus[!is.na(gpus[,c("Release_Date")]),]
+gpus[is.na(gpus[c("Release_Date")]), c("Release_Date")] <- getmode(aux$Release_Date)
 
 ########################################################################
 
 # SAVING THE DATASET PREPROCESSED
-write.table(gpus, file = "preprocessed_GPUs.csv", sep = ";", na = "NA", dec = ".", row.names = FALSE, col.names = TRUE)
-
+write.table(gpus, file = "preprocessed_GPUs.csv", sep = ",", na = "NA", dec = ".", row.names = FALSE, col.names = TRUE)
