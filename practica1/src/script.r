@@ -16,7 +16,7 @@ getmode <- function(v) {
 }
 
 ######### IMPORT DATA ############
-path <- "/Users/mariamontalvofalcon/Desktop/MD-FIB/practica1/GPUS.csv"
+path <- "/Users/mariamontalvofalcon/Desktop/MD-FIB/practica1/data/GPUS.csv"
 gpus <- read.csv(path, header = T, sep = ",")
 attach(gpus)
 names(gpus)

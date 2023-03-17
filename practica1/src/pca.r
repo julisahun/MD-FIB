@@ -8,7 +8,7 @@ library(ggcorrplot)
 library(FactoMineR)
 library(factoextra)
 
-path <- "D:/uni/4r/MD-FIB/practica1/preprocessed_GPUs.csv"
+path <- "D:/uni/4r/MD-FIB/practica1/data/preprocessed_GPUs.csv"
 gpus <- read.csv(path, header = T, sep = ",")
 numericBools <- gpus
 cols <- sapply(gpus, is.logical)
