@@ -1397,19 +1397,19 @@ G98 ,,,"
 - ",,Yes,DX 10,,,No,0KB,Nvidia,13 Watts,256 MB ,11.2GB/sec,64 Bit ,700 MHz,DDR3,GeForce 9200M GS,Yes,2.1,,,,,,"
 03-Jun-2008 ",,2560x1600,No,4.0,,,
 NV17M ,,,"
-- ",,Yes,DX 7.0,,,No,0KB,Nvidia,,64 MB ,1000MB/sec,32 Bit ,250 MHz,DDR,GeForce4 Go 460,Yes,1.2,,,,,,"
+- ",,Yes,DX 7.0,,,No,0KB,Nvidia,,64 MB ,1GB/sec,32 Bit ,250 MHz,DDR,GeForce4 Go 460,Yes,1.2,,,,,,"
 06-Feb-2002 ",,,No,,,,
 MCP79MX ,,,"
 - ",,No,DX 10,,,Yes,0KB,Nvidia,12 Watts,,,128 Bit ,,,GeForce 9400M G,Yes,3.3,,,,,,"
 01-Oct-2008 ",,2560x1600,Yes,4.0,,,
 NV17M ,,,"
-- ",,Yes,DX 7.0,,,No,0KB,Nvidia,,64 MB ,880MB/sec,32 Bit ,220 MHz,DDR,GeForce4 Go 440,Yes,1.3,,,,,,"
+- ",,Yes,DX 7.0,,,No,0KB,Nvidia,,64 MB ,0.880GB/sec,32 Bit ,220 MHz,DDR,GeForce4 Go 440,Yes,1.3,,,,,,"
 26-Feb-2002 ",,,No,,,,
 GT216M ,,,"
 - ",,Yes,DX 10.1,,,No,0KB,Nvidia,35 Watts,1024 MB ,25.3GB/sec,128 Bit ,790 MHz,GDDR3,Quadro FX 880M,Yes,3.2,,,,40nm,,"
 07-Jan-2010 ",,,No,4.0,,,
 NV17M ,,,"
-- ",,Yes,DX 7.0,,,No,0KB,Nvidia,,32 MB ,800MB/sec,32 Bit ,200 MHz,DDR,GeForce4 Go 420,Yes,1.2,,,,,,"
+- ",,Yes,DX 7.0,,,No,0KB,Nvidia,,32 MB ,0.8GB/sec,32 Bit ,200 MHz,DDR,GeForce4 Go 420,Yes,1.2,,,,,,"
 06-Feb-2002 ",,,No,,,,
 NB9P-GLM2 ,,,"
 - ",,Yes,DX 10,,,No,0KB,Nvidia,35 Watts,512 MB ,25.6GB/sec,128 Bit ,800 MHz,GDDR3,Quadro FX 770M,Yes,2.1,,,,,,"
@@ -2420,7 +2420,7 @@ GCN 1.1 Grenada XT ,2560 x 1600,,1080 MHz,2,Yes,DX 12.0,3,1,No,1024KB,AMD,375 Wa
 18-Jun-2015 ",,4096x2160,Yes,5.0,176 ,190 GTexel/s,0
 GCN 1.1 Grenada XT ,2560 x 1600,,1060 MHz,1,Yes,DX 12.0,3,1,No,1024KB,AMD,375 Watts,8192 MB ,384GB/sec,512 Bit ,1500 MHz,GDDR5,Radeon R9 390X Sapphire Nitro w/ Back Plate 8GB Edition,No,4.4,750 Watt & 50 Amps,68 GPixel/s,2x 8-pin ,28nm,64,"
 18-Jun-2015 ",,4096x2160,Yes,5.0,176 ,187 GTexel/s,0
-GCN 1.1 Grenada XT ,2560 x 1600,,1070 MHz,2,Yes,DX 12.0,,1,No,1024KB,AMD,300 Watts,8192 MB ,384GB/sec,512 Bit ,1500 MHz,GDDR5,Radeon R9 390X HIS IceQ XÂ² OC 8GB Edition,No,4.4,750 Watt & 50 Amps,68 GPixel/s,1x 6-pin + 1x 8-pin ,28nm,64,"
+GCN 1.1 Grenada XT ,2560 x 1600,,1070 MHz,2,Yes,DX 12.0,,1,No,1024KB,AMD,300 Watts,8192 MB ,384GB/sec,512 Bit ,1500 MHz,GDDR5,Radeon R9 390X HIS IceQ X² OC 8GB Edition,No,4.4,750 Watt & 50 Amps,68 GPixel/s,1x 6-pin + 1x 8-pin ,28nm,64,"
 18-Jun-2015 ",,4096x2160,Yes,5.0,176 ,188 GTexel/s,0
 GCN 1.1 Grenada XT ,2560 x 1600,,1100 MHz,2,Yes,DX 12.0,,1,No,1024KB,AMD,300 Watts,8192 MB ,390.4GB/sec,512 Bit ,1525 MHz,GDDR5,Radeon R9 390X MSI Gaming 8GB Edition,No,4.4,750 Watt & 50 Amps,70 GPixel/s,1x 6-pin + 1x 8-pin ,28nm,64,"
 18-Jun-2015 ",$419.00,4096x2160,Yes,5.0,176 ,194 GTexel/s,0
@@ -2468,11 +2468,11 @@ GCN 1.1 Grenada PRO ,2560 x 1440,,1010 MHz,2,Yes,DX 12.0,,1,No,1024KB,AMD,300 Wa
 18-Jun-2015 ",$419.00,4096x2160,Yes,5.0,160 ,162 GTexel/s,0
 GCN 1.2 Antigua XT ,1920 x 1080,,1040 MHz,2,Yes,DX 12.0,1,1,No,768KB,AMD,225 Watts,4096 MB ,192GB/sec,256 Bit ,1500 MHz,GDDR5,Radeon R9 380X Sapphire Nitro 4GB Edition,No,4.5,500 Watt & 33 Amps,33 GPixel/s,2x 6-pin ,28nm,32,"
 19-Nov-2015 ",$249.99,4096x2160,Yes,5.0,128 ,133 GTexel/s,0
-GCN 1.2 Antigua XT ,1920 x 1080,,1020 MHz,2,Yes,DX 12.0,1,1,No,768KB,AMD,190 Watts,4096 MB ,182.4GB/sec,256 Bit ,1425 MHz,GDDR5,Radeon R9 380X HIS IceQ XÂ² Turbo 4GB Edition,No,4.5,500 Watt & 33 Amps,33 GPixel/s,2x 6-pin ,28nm,32,"
+GCN 1.2 Antigua XT ,1920 x 1080,,1020 MHz,2,Yes,DX 12.0,1,1,No,768KB,AMD,190 Watts,4096 MB ,182.4GB/sec,256 Bit ,1425 MHz,GDDR5,Radeon R9 380X HIS IceQ X² Turbo 4GB Edition,No,4.5,500 Watt & 33 Amps,33 GPixel/s,2x 6-pin ,28nm,32,"
 19-Nov-2015 ",,4096x2160,Yes,5.0,128 ,131 GTexel/s,0
 GCN 1.1 Grenada PRO ,2560 x 1440,,1000 MHz,1,Yes,DX 12.0,,1,No,1024KB,AMD,300 Watts,8192 MB ,384GB/sec,512 Bit ,1500 MHz,GDDR5,Radeon R9 390 Asus DirectCU II 8GB Edition,No,4.4,600 Watt & 42 Amps,64 GPixel/s,1x 6-pin + 1x 8-pin ,28nm,64,"
 18-Jun-2015 ",$329.00,4096x2160,Yes,5.0,160 ,160 GTexel/s,0
-GCN 1.2 Antigua XT ,1920 x 1080,,990 MHz,2,Yes,DX 12.0,1,1,No,768KB,AMD,190 Watts,4096 MB ,182.4GB/sec,256 Bit ,1425 MHz,GDDR5,Radeon R9 380X HIS IceQ XÂ² OC 4GB Edition,No,4.5,500 Watt & 33 Amps,32 GPixel/s,2x 6-pin ,28nm,32,"
+GCN 1.2 Antigua XT ,1920 x 1080,,990 MHz,2,Yes,DX 12.0,1,1,No,768KB,AMD,190 Watts,4096 MB ,182.4GB/sec,256 Bit ,1425 MHz,GDDR5,Radeon R9 380X HIS IceQ X² OC 4GB Edition,No,4.5,500 Watt & 33 Amps,32 GPixel/s,2x 6-pin ,28nm,32,"
 19-Nov-2015 ",,4096x2160,Yes,5.0,128 ,127 GTexel/s,0
 GCN 1.2 Antigua XT ,1920 x 1080,,1020 MHz,2,Yes,DX 12.0,1,1,No,768KB,AMD,225 Watts,4096 MB ,188.8GB/sec,256 Bit ,1475 MHz,GDDR5,Radeon R9 380X PowerColor PCS+ Myst. 4GB Edition,No,4.5,500 Watt & 33 Amps,33 GPixel/s,2x 6-pin ,28nm,32,"
 19-Nov-2015 ",,4096x2160,Yes,5.0,128 ,131 GTexel/s,0
@@ -2494,7 +2494,7 @@ GCN 1.2 Antigua PRO ,1920 x 1080,,980 MHz,2,Yes,DX 12.0,,1,No,768KB,AMD,190 Watt
 18-Jun-2015 ",,4096x2160,Yes,5.0,112 ,110 GTexel/s,0
 GCN 1.2 Antigua PRO ,1920 x 1080,,985 MHz,2,Yes,DX 12.0,,1,No,768KB,AMD,225 Watts,4096 MB ,185.6GB/sec,256 Bit ,1450 MHz,GDDR5,Radeon R9 380 Sapphire Nitro 4GB Edition,No,4.5,500 Watt & 33 Amps,32 GPixel/s,2x 6-pin ,28nm,32,"
 18-Jun-2015 ",$219.00,4096x2160,Yes,5.0,112 ,110 GTexel/s,0
-GCN 1.2 Antigua PRO ,1920 x 1080,,990 MHz,2,Yes,DX 12.0,1,1,No,768KB,AMD,190 Watts,4096 MB ,182.4GB/sec,256 Bit ,1425 MHz,GDDR5,Radeon R9 380 HIS IceQ XÂ² OC 4GB Edition,No,4.5,500 Watt & 33 Amps,32 GPixel/s,2x 6-pin ,28nm,32,"
+GCN 1.2 Antigua PRO ,1920 x 1080,,990 MHz,2,Yes,DX 12.0,1,1,No,768KB,AMD,190 Watts,4096 MB ,182.4GB/sec,256 Bit ,1425 MHz,GDDR5,Radeon R9 380 HIS IceQ X² OC 4GB Edition,No,4.5,500 Watt & 33 Amps,32 GPixel/s,2x 6-pin ,28nm,32,"
 18-Jun-2015 ",,4096x2160,Yes,5.0,112 ,111 GTexel/s,0
 GCN 1.2 Antigua PRO ,1920 x 1080,,985 MHz,2,Yes,DX 12.0,,1,No,768KB,AMD,225 Watts,2048 MB ,176GB/sec,256 Bit ,1375 MHz,GDDR5,Radeon R9 380 Sapphire Dual-X OC 2GB Edition,No,4.5,500 Watt & 33 Amps,32 GPixel/s,2x 6-pin ,28nm,32,"
 18-Jun-2015 ",$229.00,4096x2160,Yes,5.0,112 ,110 GTexel/s,0
@@ -2502,7 +2502,7 @@ GCN 1.2 Antigua PRO ,1920 x 1080,,980 MHz,2,Yes,DX 12.0,,1,No,768KB,AMD,190 Watt
 18-Jun-2015 ",$199.00,4096x2160,Yes,5.0,112 ,110 GTexel/s,0
 GCN 1.2 Antigua PRO ,1920 x 1080,,1000 MHz,2,Yes,DX 12.0,,1,No,768KB,AMD,190 Watts,4096 MB ,185.6GB/sec,256 Bit ,1450 MHz,GDDR5,Radeon R9 380 MSI Gaming 4GB Edition,No,4.5,500 Watt & 33 Amps,32 GPixel/s,2x 6-pin ,28nm,32,"
 18-Jun-2015 ",$239.00,4096x2160,Yes,5.0,112 ,112 GTexel/s,0
-GCN 1.2 Antigua PRO ,1920 x 1080,,990 MHz,2,Yes,DX 12.0,1,1,No,768KB,AMD,190 Watts,4096 MB ,182.4GB/sec,256 Bit ,1425 MHz,GDDR5,Radeon R9 380 HIS IceQ XÂ² 4GB Edition,No,4.5,500 Watt & 33 Amps,32 GPixel/s,2x 6-pin ,28nm,32,"
+GCN 1.2 Antigua PRO ,1920 x 1080,,990 MHz,2,Yes,DX 12.0,1,1,No,768KB,AMD,190 Watts,4096 MB ,182.4GB/sec,256 Bit ,1425 MHz,GDDR5,Radeon R9 380 HIS IceQ X² 4GB Edition,No,4.5,500 Watt & 33 Amps,32 GPixel/s,2x 6-pin ,28nm,32,"
 18-Jun-2015 ",,4096x2160,Yes,5.0,112 ,111 GTexel/s,0
 GCN 1.2 Antigua PRO ,1920 x 1080,,980 MHz,2,Yes,DX 12.0,,1,No,768KB,AMD,190 Watts,2048 MB ,176GB/sec,256 Bit ,1375 MHz,GDDR5,Radeon R9 380 Gigabyte WindForce 2X OC (rev 1.0) 2GB Edition,No,4.5,500 Watt & 33 Amps,31 GPixel/s,2x 6-pin ,28nm,32,"
 18-Jun-2015 ",$209.00,4096x2160,Yes,5.0,112 ,110 GTexel/s,0
@@ -2719,7 +2719,7 @@ GCN 1.0 Tahiti XTL ,1920 x 1080,1070 MHz ,950 MHz,1,Yes,DX 12.0,,1,No,768KB,AMD,
 08-Oct-2013 ",,4096x2160,Yes,5.0,128 ,137 GTexel/s,0
 GCN 1.0 Tahiti XTL ,1920 x 1080,1050 MHz ,1000 MHz,1,Yes,DX 12.0,,1,No,768KB,AMD,250 Watts,3072 MB ,288GB/sec,384 Bit ,1500 MHz,GDDR5,Radeon R9 280X MSI Gaming 3GB Edition,No,4.4,500 Watt & 38 Amps,34 GPixel/s,None ,28nm,32,"
 08-Oct-2013 ",,4096x2160,Yes,5.0,128 ,134 GTexel/s,0
-GCN 1.0 Tahiti XTL ,1920 x 1080,1050 MHz ,1000 MHz,1,Yes,DX 12.0,,1,No,768KB,AMD,250 Watts,3072 MB ,288GB/sec,384 Bit ,1500 MHz,GDDR5,Radeon R9 280X HIS iPower IceQ XÂ² Edition,No,4.4,750 Watt & 42 Amps,34 GPixel/s,None ,28nm,32,"
+GCN 1.0 Tahiti XTL ,1920 x 1080,1050 MHz ,1000 MHz,1,Yes,DX 12.0,,1,No,768KB,AMD,250 Watts,3072 MB ,288GB/sec,384 Bit ,1500 MHz,GDDR5,Radeon R9 280X HIS iPower IceQ X² Edition,No,4.4,750 Watt & 42 Amps,34 GPixel/s,None ,28nm,32,"
 08-Oct-2013 ",,4096x2160,Yes,5.0,128 ,134 GTexel/s,0
 GCN 1.0 Tahiti XTL ,1920 x 1080,1030 MHz ,880 MHz,1,Yes,DX 12.0,,1,No,768KB,AMD,250 Watts,3072 MB ,288GB/sec,384 Bit ,1500 MHz,GDDR5,Radeon R9 280X PowerColor TurboDuo 3GB OC Edition,No,4.4,750 Watt,33 GPixel/s,None ,28nm,32,"
 05-Dec-2013 ",,4096x2160,Yes,5.0,128 ,132 GTexel/s,0
@@ -2825,7 +2825,7 @@ GCN 1.0 Pitcairn PRO ,1920 x 1080,925 MHz ,900 MHz,2,Yes,DX 12.0,,1,No,512KB,AMD
 13-Mar-2015 ",,4096x2160,Yes,5.0,64 ,59 GTexel/s,0
 GCN 1.1 Curacao PRO ,1920 x 1080,975 MHz ,950 MHz,2,Yes,DX 12.0,,1,No,512KB,AMD,175 Watts,2048 MB ,179.2GB/sec,256 Bit ,1400 MHz,GDDR5,Radeon R9 270 DirectCU II OC Edition,No,4.4,,31 GPixel/s,None ,28nm,32,"
 13-Nov-2013 ",,4096x2160,Yes,5.0,80 ,78 GTexel/s,0
-GCN 1.1 Curacao PRO ,1920 x 1080,975 MHz ,950 MHz,1,Yes,DX 12.0,,1,No,512KB,AMD,175 Watts,2048 MB ,179.2GB/sec,256 Bit ,1400 MHz,GDDR5,Radeon R9 270 HIS IceQ XÂ² Turbo Edition,No,4.4,,31 GPixel/s,None ,28nm,32,"
+GCN 1.1 Curacao PRO ,1920 x 1080,975 MHz ,950 MHz,1,Yes,DX 12.0,,1,No,512KB,AMD,175 Watts,2048 MB ,179.2GB/sec,256 Bit ,1400 MHz,GDDR5,Radeon R9 270 HIS IceQ X² Turbo Edition,No,4.4,,31 GPixel/s,None ,28nm,32,"
 13-Nov-2013 ",,4096x2160,Yes,5.0,80 ,78 GTexel/s,0
 GCN 1.1 Curacao PRO ,1920 x 1080,950 MHz ,925 MHz,1,Yes,DX 12.0,,1,No,512KB,AMD,150 Watts,2048 MB ,179.2GB/sec,256 Bit ,1400 MHz,GDDR5,Radeon R9 270 HIS iCooler 2GB Edition,No,4.4,500 Watt & 33 Amps,30 GPixel/s,1x 6-pin ,28nm,32,"
 13-Nov-2013 ",,4096x2160,Yes,5.0,80 ,76 GTexel/s,0
@@ -2835,7 +2835,7 @@ GCN 1.1 Curacao PRO (x2) ,2560 x 1440,925 MHz ,900 MHz,2,Yes,DX 12.0,,1,No,512KB
 13-Nov-2013 ",$358.00,4096x2160,Yes,5.0,80 ,148 GTexel/s,0
 GCN 1.1 Curacao XT ,1920 x 1080,1120 MHz ,1070 MHz,2,Yes,DX 12.0,,1,No,512KB,AMD,180 Watts,2048 MB ,179.2GB/sec,256 Bit ,1400 MHz,GDDR5,Radeon R9 270X DirectCU II TOP 2GB Edition,No,4.4,500 Watt,36 GPixel/s,None ,28nm,32,"
 08-Oct-2013 ",,4096x2160,Yes,5.0,80 ,90 GTexel/s,0
-GCN 1.1 Curacao PRO ,1920 x 1080,925 MHz ,900 MHz,1,Yes,DX 12.0,,1,No,512KB,AMD,150 Watts,2048 MB ,179.2GB/sec,256 Bit ,1400 MHz,GDDR5,Radeon R9 270 HIS IceQ XÃ‚Â² 2GB Edition,No,4.4,500 Watt & 33 Amps,30 GPixel/s,2x 6-pin ,28nm,32,"
+GCN 1.1 Curacao PRO ,1920 x 1080,925 MHz ,900 MHz,1,Yes,DX 12.0,,1,No,512KB,AMD,150 Watts,2048 MB ,179.2GB/sec,256 Bit ,1400 MHz,GDDR5,Radeon R9 270 HIS IceQ XÂ² 2GB Edition,No,4.4,500 Watt & 33 Amps,30 GPixel/s,2x 6-pin ,28nm,32,"
 13-Nov-2013 ",,4096x2160,Yes,5.0,80 ,74 GTexel/s,0
 GCN 1.1 Curacao PRO (x2) ,2560 x 1440,955 MHz ,930 MHz,2,Yes,DX 12.0,,1,No,512KB(x2),AMD,300 Watts,4096 MB ,358.4GB/sec,256 Bit ,1400 MHz,GDDR5,Radeon R9 270 Club3D 14Series Edition Crossfire,No,4.4,600 Watt & 42 Amps,61 GPixel/s,2x 6-pin ,28nm,32 (x2),"
 18-Dec-2013 ",,4096x2160,Yes,5.0,80 ,153 GTexel/s,0
@@ -2917,11 +2917,11 @@ GCN 1.1 Bonaire XT ,1600 x 900,,1050 MHz,1,Yes,DX 12.0,1,1,No,512KB,AMD,105 Watt
 08-Oct-2013 ",,4096x2160,Yes,5.0,56 ,59 GTexel/s,0
 GCN 1.1 Bonaire XT ,1600 x 900,,1050 MHz,2,Yes,DX 12.0,1,1,No,512KB,AMD,105 Watts,1024 MB ,96GB/sec,128 Bit ,1500 MHz,GDDR5,Radeon R7 260X v2 MSI OC 1GB Edition,No,4.4,450 Watt & 30 Amps,17 GPixel/s,1x 6-pin ,28nm,16,"
 08-Oct-2013 ",,4096x2160,Yes,5.0,56 ,59 GTexel/s,0
-GCN 1.1 Bonaire XT ,1600 x 900,,1075 MHz,2,Yes,DX 12.0,1,1,No,512KB,AMD,105 Watts,1024 MB ,102.4GB/sec,128 Bit ,1600 MHz,GDDR5,Radeon R7 260X v2 HIS iPower IceQ XÂ² Turbo 1GB Edition,No,4.4,500 Watt & 33 Amps,17 GPixel/s,1x 6-pin ,28nm,16,"
+GCN 1.1 Bonaire XT ,1600 x 900,,1075 MHz,2,Yes,DX 12.0,1,1,No,512KB,AMD,105 Watts,1024 MB ,102.4GB/sec,128 Bit ,1600 MHz,GDDR5,Radeon R7 260X v2 HIS iPower IceQ X² Turbo 1GB Edition,No,4.4,500 Watt & 33 Amps,17 GPixel/s,1x 6-pin ,28nm,16,"
 31-Oct-2013 ",,4096x2160,Yes,5.0,56 ,60 GTexel/s,0
 GCN 1.1 Bonaire XT ,1600 x 900,,1000 MHz,2,Yes,DX 12.0,1,1,No,512KB,AMD,105 Watts,1024 MB ,96GB/sec,128 Bit ,1500 MHz,GDDR5,Radeon R7 260X v2 MSI 1GB Edition,No,4.4,500 Watt & 33 Amps,16 GPixel/s,1x 6-pin ,28nm,16,"
 08-Oct-2013 ",,4096x2160,Yes,5.0,56 ,56 GTexel/s,0
-GCN 1.1 Bonaire XT ,1600 x 900,,1000 MHz,2,Yes,DX 12.0,1,1,No,512KB,AMD,105 Watts,2048 MB ,96GB/sec,128 Bit ,1500 MHz,GDDR5,Radeon R7 260X v2 HIS iPower IceQ XÂ² 2GB Edition,No,4.4,500 Watt & 33 Amps,16 GPixel/s,1x 6-pin ,28nm,16,"
+GCN 1.1 Bonaire XT ,1600 x 900,,1000 MHz,2,Yes,DX 12.0,1,1,No,512KB,AMD,105 Watts,2048 MB ,96GB/sec,128 Bit ,1500 MHz,GDDR5,Radeon R7 260X v2 HIS iPower IceQ X² 2GB Edition,No,4.4,500 Watt & 33 Amps,16 GPixel/s,1x 6-pin ,28nm,16,"
 09-Oct-2013 ",,4096x2160,Yes,5.0,56 ,56 GTexel/s,0
 GCN 1.1 Bonaire XT ,1600 x 900,,1030 MHz,2,Yes,DX 12.0,1,1,No,512KB,AMD,105 Watts,1024 MB ,96GB/sec,128 Bit ,1500 MHz,GDDR5,Radeon R7 260X v2 PowerColor OC 1GB Edition,No,4.4,500 Watt & 33 Amps,16 GPixel/s,1x 6-pin ,28nm,16,"
 08-Oct-2013 ",,4096x2160,Yes,5.0,56 ,58 GTexel/s,0
@@ -2995,7 +2995,7 @@ GCN 1.3 Ellesmere XT ,2560 x 1440,1291 MHz ,1120 MHz,1,Yes,DX 12.0,2,2,No,2048KB
 Unknown Release Date ",$245.00,4096x2160,No,5.0,144 ,186 GTexel/s,0
 GCN 1.3 Ellesmere XT ,1920 x 1080,1291 MHz ,1120 MHz,1,Yes,DX 12.0,2,2,No,2048KB,ATI,120 Watts,4096 MB ,224GB/sec,256 Bit ,1750 MHz,GDDR5,Radeon RX 480 MSI Armor OC 4GB,No,4.5,450 Watt & 30 Amps,41 GPixel/s,1x 8-pin ,14nm,32,"
 Unknown Release Date ",$220.00,4096x2160,No,5.0,144 ,186 GTexel/s,0
-GCN 1.3 Ellesmere XT ,2560 x 1440,1338 MHz ,1120 MHz,1,Yes,DX 12.0,3,1,No,2048KB,ATI,150 Watts,8192 MB ,256GB/sec,256 Bit ,2000 MHz,GDDR5,Radeon RX 480 HIS IceQ XÂ² Roaring Turbo GB,No,4.5,500 Watt & 33 Amps,43 GPixel/s,1x 8-pin ,14nm,32,"
+GCN 1.3 Ellesmere XT ,2560 x 1440,1338 MHz ,1120 MHz,1,Yes,DX 12.0,3,1,No,2048KB,ATI,150 Watts,8192 MB ,256GB/sec,256 Bit ,2000 MHz,GDDR5,Radeon RX 480 HIS IceQ X² Roaring Turbo GB,No,4.5,500 Watt & 33 Amps,43 GPixel/s,1x 8-pin ,14nm,32,"
 29-Jun-2016 ",$250.00,5120x2160,No,5.0,144 ,193 GTexel/s,0
 GCN 1.1 Bonaire PRO ,1600 x 900,,1000 MHz,1,Yes,DX 12.0,,1,No,512KB,AMD,95 Watts,2048 MB ,96GB/sec,128 Bit ,1500 MHz,GDDR5,Radeon R7 260,No,4.4,450 Watt & 30 Amps,16 GPixel/s,1x 6-pin ,28nm,16,"
 17-Dec-2013 ",$109.00,4096x2160,Yes,5.0,48 ,48 GTexel/s,0
@@ -3009,7 +3009,7 @@ GCN 1.3 Ellesmere XT ,1920 x 1080,1266 MHz ,1120 MHz,0,Yes,DX 12.0,3,1,No,2048KB
 01-Jun-2016 ",$200.00,4096x2160,No,5.0,144 ,182 GTexel/s,0
 GCN 1.0 Cape Verde XT ,1600 x 900,,950 MHz,2,Yes,DX 12.0,,1,No,512KB,AMD,80 Watts,1024 MB ,72GB/sec,128 Bit ,1125 MHz,GDDR5,Radeon R7 250X Sapphire 1GB Edition,No,4.4,450 Watt & 20 Amps,15 GPixel/s,1x 6-pin ,28nm,16,"
 13-Feb-2014 ",,4096x2160,Yes,5.0,40 ,38 GTexel/s,0
-GCN 1.3 Ellesmere XT ,,1338 MHz ,1120 MHz,1,Yes,DX 12.0,3,1,No,2048KB,ATI,150 Watts,8192 MB ,256GB/sec,256 Bit ,2000 MHz,GDDR5,Radeon RX 480 HIS IceQ XÂ² Roaring Turbo 8GB,No,4.5,500 Watt & 33 Amps,43 GPixel/s,1x 8-pin ,14nm,32,"
+GCN 1.3 Ellesmere XT ,,1338 MHz ,1120 MHz,1,Yes,DX 12.0,3,1,No,2048KB,ATI,150 Watts,8192 MB ,256GB/sec,256 Bit ,2000 MHz,GDDR5,Radeon RX 480 HIS IceQ X² Roaring Turbo 8GB,No,4.5,500 Watt & 33 Amps,43 GPixel/s,1x 8-pin ,14nm,32,"
 29-Jun-2016 ",$250.00,4096x2160,No,5.0,144 ,193 GTexel/s,0
 GCN 1.0 Cape Verde XT ,1600 x 900,,1100 MHz,2,Yes,DX 12.0,,1,No,512KB,AMD,80 Watts,1024 MB ,83.2GB/sec,128 Bit ,1300 MHz,GDDR5,Radeon R7 250X Sapphire Vapor-X OC Edition,No,4.4,450 Watt & 20 Amps,18 GPixel/s,1x 6-pin ,28nm,16,"
 13-Feb-2014 ",,4096x2160,Yes,5.0,40 ,44 GTexel/s,0
@@ -3047,7 +3047,7 @@ GCN 1.1 Oland XT ,1366 x 768,1050 MHz ,1000 MHz,1,Yes,DX 12.0,,1,No,512KB,AMD,65
 09-Oct-2013 ",,2560x1600,Yes,5.0,24 ,25 GTexel/s,1
 GCN 1.1 Oland XT ,1366 x 768,1050 MHz ,1000 MHz,1,Yes,DX 12.0,,1,No,512KB,AMD,65 Watts,2048 MB ,28.8GB/sec,128 Bit ,900 MHz,DDR3,Radeon R7 250 v2 HIS 2GB Edition,No,4.4,400 Watt & 18 Amps,8 GPixel/s,None ,28nm,8,"
 09-Oct-2013 ",,2560x1600,No,5.0,24 ,25 GTexel/s,1
-GCN 1.3 Ellesmere XT ,2560 x 1440,1288 MHz ,1120 MHz,1,Yes,DX 12.0,3,1,No,2048KB,ATI,150 Watts,8192 MB ,256GB/sec,256 Bit ,2000 MHz,GDDR5,Radeon RX 480 HIS IceQ XÂ² Roaring OC GB,No,4.5,500 Watt & 33 Amps,41 GPixel/s,1x 8-pin ,14nm,32,"
+GCN 1.3 Ellesmere XT ,2560 x 1440,1288 MHz ,1120 MHz,1,Yes,DX 12.0,3,1,No,2048KB,ATI,150 Watts,8192 MB ,256GB/sec,256 Bit ,2000 MHz,GDDR5,Radeon RX 480 HIS IceQ X² Roaring OC GB,No,4.5,500 Watt & 33 Amps,41 GPixel/s,1x 8-pin ,14nm,32,"
 29-Jun-2016 ",$240.00,5120x2880,No,5.0,144 ,185 GTexel/s,0
 GCN 1.1 Oland XT ,1366 x 768,1050 MHz ,1000 MHz,1,Yes,DX 12.0,,1,No,512KB,AMD,48 Watts,2048 MB ,28.8GB/sec,128 Bit ,900 MHz,DDR3,Radeon R7 250 v2 Club3D 2GB Edition,No,4.4,500 Watt & 32 Amps,8 GPixel/s,None ,28nm,8,"
 09-Oct-2013 ",,2560x1600,No,5.0,24 ,25 GTexel/s,1
@@ -3646,7 +3646,7 @@ RV535 ,,,"
 - ",2,Yes,DX 9.0c,,0,No,0KB,AMD,44 Watts,256 MB ,22.4GB/sec,128 Bit ,700 MHz,GDDR3,Radeon X1650 PRO ,No,2.0,,,None ,,,"
 23-Aug-2006 ",,,Yes,3.0,,,0
 R520 ,,,"
-- ",2,Yes,DX 9.0c,,0,No,0KB,AMD,48 Watts,512 MB ,31.7GB/sec,256 Bit ,495 MHz,GDDR3,Radeon X1800 GTOÂ²,No,2.0,,,None ,,,"
+- ",2,Yes,DX 9.0c,,0,No,0KB,AMD,48 Watts,512 MB ,31.7GB/sec,256 Bit ,495 MHz,GDDR3,Radeon X1800 GTO²,No,2.0,,,None ,,,"
 01-Mar-2006 ",,,Yes,3.0,,,0
 RV560 ,,,"
 - ",2,Yes,DX 9.0c,,0,No,0KB,AMD,55 Watts,256 MB ,22.4GB/sec,128 Bit ,700 MHz,GDDR3,Radeon X1650 XT ,No,2.0,,,None ,,,"
@@ -4001,7 +4001,7 @@ Kepler GK110 ,2560 x 1600,,902 MHz,2,Yes,DX 12.0,,0,No,1536KB,Nvidia,225 Watts,1
 Maxwell GM204-200-A1 ,2560 x 1440,,773 MHz,0,Yes,DX 12.1,4,0,No,1792KB,Nvidia,120 Watts,8192 MB ,192.3GB/sec,256 Bit ,1502 MHz,GDDR5,Quadro M4000,No,4.5,450 Watt & 30 Amps,43 GPixel/s,1x 6-pin ,28nm,56,"
 29-Jun-2015 ",,4096x2160,No,5.0,104 ,80 GTexel/s,0
 NV6 ,,,"
-- ",0,Yes,DX 6.0,,0,No,0KB,Nvidia,,16 MB ,800MB/sec,64 Bit ,100 MHz,DDR,Vanta LT,No,1.2,,,None ,,,"
+- ",0,Yes,DX 6.0,,0,No,0KB,Nvidia,,16 MB ,0.8GB/sec,64 Bit ,100 MHz,DDR,Vanta LT,No,1.2,,,None ,,,"
 01-Mar-2000 ",,,No,,,,0
 Kepler GK110 ,1920 x 1080,,902 MHz,2,Yes,DX 12.0,,0,No,1536KB,Nvidia,150 Watts,8192 MB ,192GB/sec,384 Bit ,1000 MHz,GDDR5,Quadro K5200,No,4.5,500 Watt & 33 Amps,43 GPixel/s,2x 6-pin ,28nm,48,"
 22-Jul-2014 ",,4096x2160,Yes,5.0,192 ,173 GTexel/s,0
@@ -4736,7 +4736,7 @@ GCN 1.0 Tahiti XT ,1920 x 1080,,1010 MHz,1,Yes,DX 12.0,,1,No,768KB,AMD,,3072 MB 
 01-Feb-2012 ",,4096x2160,Yes,5.0,128 ,129 GTexel/s,0
 GCN 1.0 Tahiti XT2 ,1920 x 1080,1150 MHz ,1100 MHz,2,Yes,DX 12.0,,1,No,768KB,AMD,265 Watts,6144 MB ,288GB/sec,384 Bit ,1500 MHz,GDDR5,Radeon HD 7970 GHz Toxic 6GB Edition,No,4.4,,37 GPixel/s,None ,28nm,32,"
 01-Aug-2012 ",,4096x2160,Yes,5.0,128 ,147 GTexel/s,0
-GCN 1.0 Tahiti XT ,1920 x 1080,,925 MHz,1,Yes,DX 12.0,,1,No,768KB,AMD,,3072 MB ,264GB/sec,384 Bit ,1375 MHz,GDDR5,Radeon HD 7970 HIS IceQ XÂ² Edition,No,4.4,500 Watt,30 GPixel/s,None ,28nm,32,"
+GCN 1.0 Tahiti XT ,1920 x 1080,,925 MHz,1,Yes,DX 12.0,,1,No,768KB,AMD,,3072 MB ,264GB/sec,384 Bit ,1375 MHz,GDDR5,Radeon HD 7970 HIS IceQ X² Edition,No,4.4,500 Watt,30 GPixel/s,None ,28nm,32,"
 01-May-2012 ",,4096x2160,Yes,5.0,128 ,118 GTexel/s,0
 GCN 1.0 Tahiti XT2 ,1920 x 1080,1100 MHz ,1000 MHz,2,Yes,DX 12.0,,1,No,768KB,AMD,,3072 MB ,288GB/sec,384 Bit ,1500 MHz,GDDR5,Radeon HD 7970 GHz Vapor-X 3GB,No,4.4,500 Watt,35 GPixel/s,None ,28nm,32,"
 01-Aug-2012 ",,4096x2160,Yes,5.0,128 ,141 GTexel/s,0
@@ -5843,11 +5843,11 @@ Kepler GK104 ,1920 x 1080,1097 MHz ,1019 MHz,2,Yes,DX 12.0,,1,No,256KB(x2),Nvidi
 01-Aug-2012 ",,4096x2160,Yes,5.0,112 ,246 GTexel/s,0
 Kepler GK104-300-KD-A2 ,1920 x 1080,1098 MHz ,1033 MHz,2,Yes,DX 12.0,,1,No,384KB,Nvidia,150 Watts,2048 MB ,144.2GB/sec,192 Bit ,1502 MHz,GDDR5,GeForce GTX 660 Ti MSI Gaming OC Edition,No,4.5,450 Watt & 24 Amps,26 GPixel/s,None ,28nm,24,"
 01-Aug-2012 ",,4096x2160,Yes,5.0,112 ,123 GTexel/s,0
-Kepler GK104-300-KD-A2 ,1920 x 1080,1084 MHz ,1006 MHz,2,Yes,DX 12.0,,1,No,384KB,Nvidia,150 Watts,3072 MB ,144.2GB/sec,192 Bit ,1502 MHz,GDDR5,GeForce GTX 660 Ti KFAÂ² EX OC 3GB Edition,No,4.5,450 Watt & 33 Amps,26 GPixel/s,2x 6-pin ,28nm,24,"
+Kepler GK104-300-KD-A2 ,1920 x 1080,1084 MHz ,1006 MHz,2,Yes,DX 12.0,,1,No,384KB,Nvidia,150 Watts,3072 MB ,144.2GB/sec,192 Bit ,1502 MHz,GDDR5,GeForce GTX 660 Ti KFA² EX OC 3GB Edition,No,4.5,450 Watt & 33 Amps,26 GPixel/s,2x 6-pin ,28nm,24,"
 16-Aug-2012 ",,4096x2160,Yes,5.0,112 ,121 GTexel/s,0
 Kepler GK104-300-KD-A2 ,1920 x 1080,1020 MHz ,941 MHz,2,Yes,DX 12.0,,1,No,384KB,Nvidia,,2048 MB ,144.2GB/sec,192 Bit ,1502 MHz,GDDR5,GeForce GTX 660 Ti MSI OC v1 Edition,No,4.5,,24 GPixel/s,None ,28nm,24,"
 01-Oct-2012 ",,4096x2160,Yes,5.0,112 ,114 GTexel/s,0
-Kepler GK104-300-KD-A2 ,1920 x 1080,1084 MHz ,1006 MHz,2,Yes,DX 12.0,,1,No,384KB,Nvidia,150 Watts,2048 MB ,144.2GB/sec,192 Bit ,1502 MHz,GDDR5,GeForce GTX 660 Ti KFAÂ² EX OC 2GB Edition,No,4.5,450 Watt & 33 Amps,26 GPixel/s,2x 6-pin ,28nm,24,"
+Kepler GK104-300-KD-A2 ,1920 x 1080,1084 MHz ,1006 MHz,2,Yes,DX 12.0,,1,No,384KB,Nvidia,150 Watts,2048 MB ,144.2GB/sec,192 Bit ,1502 MHz,GDDR5,GeForce GTX 660 Ti KFA² EX OC 2GB Edition,No,4.5,450 Watt & 33 Amps,26 GPixel/s,2x 6-pin ,28nm,24,"
 16-Aug-2012 ",,4096x2160,Yes,5.0,112 ,121 GTexel/s,0
 Kepler GK104-300-KD-A2 ,1920 x 1080,980 MHz ,915 MHz,2,Yes,DX 12.0,,1,No,384KB,Nvidia,150 Watts,2048 MB ,144.2GB/sec,192 Bit ,1502 MHz,GDDR5,GeForce GTX 660 Ti Inno3D Edition,No,4.5,500 Watt,24 GPixel/s,None ,28nm,24,"
 01-Aug-2012 ",,4096x2160,Yes,5.0,112 ,110 GTexel/s,0
@@ -6174,7 +6174,7 @@ Tesla GT200 B3 (x2) ,1920 x 1080,,"
 NV20 ,,,"
 - ",0,Yes,DX 8.1,,0,No,0KB,Nvidia,,64 MB ,3.7GB/sec,128 Bit ,230 MHz,DDR,GeForce 3,No,1.3,,,None ,,,"
 27-Feb-2001 ",,,No,1.1,,,0
-Tesla G200-103-B2 ,1600 x 900,,650 MHz,2,Yes,DX 10.0,,0,No,0KB,Nvidia,171 Watts,896 MB ,117.6GB/sec,448 Bit ,1050 MHz,GDDR3,GeForce GTX 260 v3 Zotac AMPÂ²! 896MB Edition,No,3.3,500 Watt & 37 Amps,18 GPixel/s,2x 6-pin ,55nm,28,"
+Tesla G200-103-B2 ,1600 x 900,,650 MHz,2,Yes,DX 10.0,,0,No,0KB,Nvidia,171 Watts,896 MB ,117.6GB/sec,448 Bit ,1050 MHz,GDDR3,GeForce GTX 260 v3 Zotac AMP²! 896MB Edition,No,3.3,500 Watt & 37 Amps,18 GPixel/s,2x 6-pin ,55nm,28,"
 16-Sep-2008 ",,2560x1600,Yes,4.0,72 ,47 GTexel/s,0
 Tesla G200-103-B2 ,1600 x 900,,625 MHz,2,Yes,DX 10.0,,0,No,0KB,Nvidia,171 Watts,896 MB ,123.2GB/sec,448 Bit ,1100 MHz,GDDR3,GeForce GTX 260 v3 Palit Sonic Platinum 896MB Edition,No,3.3,500 Watt & 37 Amps,18 GPixel/s,2x 6-pin ,55nm,28,"
 27-Nov-2008 ",,2560x1600,Yes,4.0,72 ,45 GTexel/s,0
