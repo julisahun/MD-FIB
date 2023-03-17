@@ -3,14 +3,12 @@
 ################################# ENVIRONMENT ##################################
 
 ######### LIBRARIES ############
-install.packages("tidyr")
-install.packages('dplyr')
-install.packages("naniar")
-install.packages("readr")  
 library(tidyr)
 library(dplyr)
 library(naniar)
 library(readr)
+library(class)
+
 ######### METHODS ############
 getmode <- function(v) {
   uniqv <- unique(v)
@@ -65,13 +63,6 @@ gpus <- select(gpus, -c("Release_Price"))
 #----------- ARCHITECTURE -----------
 sum(is.na(gpus$Architecture))
 gpus[is.na(gpus$Architecture), c("Architecture")] <- "Unknown"
-
-
-#----------- PORTS CONNECTIONS -----------
-# Imputation to 0 to ports connection that have a NA value
-gpus[is.na(gpus[c("HDMI_Connection")]), c("HDMI_Connection")] <- 0
-gpus[is.na(gpus[c("VGA_Connection")]), c("VGA_Connection")] <- 0
-gpus[is.na(gpus[c("DVI_Connection")]), c("DVI_Connection")] <- 0
 
 
 #----------- INTEGRATED I DEDICATED -----------
@@ -280,7 +271,52 @@ gpus$Release_Date <- as.Date(tmp)
 aux <- gpus[!is.na(gpus[,c("Release_Date")]),]
 gpus[is.na(gpus[c("Release_Date")]), c("Release_Date")] <- getmode(aux$Release_Date)
 
+
+#----------- PORTS CONNECTIONS -----------
+sum(is.na(gpus$HDMI_Connection))
+sum(is.na(gpus$DVI_Connection))
+sum(is.na(gpus$VGA_Connection))
+barplot(table(gpus$HDMI_Connection),main="Bar plot HDMI Connection Variable",
+        xlab = "# of ports", ylab ="# of instances",las=1)
+barplot(table(gpus$DVI_Connection),main="Bar plot DVI Connection Variable",
+        xlab = "# of ports", ylab ="# of instances",las=1)
+barplot(table(gpus$VGA_Connection),main="Bar plot VGA Connection Variable",
+        xlab = "# of ports", ylab ="# of instances",las=1)
+
+
+uncompleteVars<-c(5,8,34)
+fullVariables<-c(2, 3, 4, 10, 12, 13, 14, 15, 16, 21, 22, 23, 25, 28, 29, 32, 33)
+aux<-gpus[,fullVariables]
+dim(aux)
+names(aux)
+
+for (k in uncompleteVars){
+  aux1 <- aux[!is.na(gpus[,k]),]
+  dim(aux1) 
+  aux2 <- aux[is.na(gpus[,k]),]
+  dim(aux2)
+  
+  RefValues<- gpus[!is.na(gpus[,k]),k]
+  knn.values = knn(aux1,aux2,RefValues)   
+  
+  gpus[is.na(gpus[,k]),k] = as.numeric(as.character(knn.values))
+  fullVariables<-c(fullVariables, k)
+  aux<-gpus[,fullVariables]
+}
+
+sum(is.na(gpus$HDMI_Connection))
+sum(is.na(gpus$DVI_Connection))
+sum(is.na(gpus$VGA_Connection))
+barplot(table(gpus$HDMI_Connection),main="Bar plot HDMI Connection Variable",
+        xlab = "# of ports", ylab ="# of instances",las=1)
+barplot(table(gpus$DVI_Connection),main="Bar plot DVI Connection Variable",
+        xlab = "# of ports", ylab ="# of instances",las=1)
+barplot(table(gpus$VGA_Connection),main="Bar plot VGA Connection Variable",
+        xlab = "# of ports", ylab ="# of instances",las=1)
+  
+
 ########################################################################
 
 # SAVING THE DATASET PREPROCESSED
+sum(is.na(gpus))
 write.table(gpus, file = "preprocessed_GPUs.csv", sep = ",", na = "NA", dec = ".", row.names = FALSE, col.names = TRUE)
