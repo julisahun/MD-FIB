@@ -276,6 +276,12 @@ gpus[is.na(gpus[c("Release_Date")]), c("Release_Date")] <- getmode(aux$Release_D
 sum(is.na(gpus$HDMI_Connection))
 sum(is.na(gpus$DVI_Connection))
 sum(is.na(gpus$VGA_Connection))
+
+summary(gpus$HDMI_Connection)
+summary(gpus$DVI_Connection)
+summary(gpus$VGA_Connection)
+
+
 barplot(table(gpus$HDMI_Connection),main="Bar plot HDMI Connection Variable",
         xlab = "# of ports", ylab ="# of instances",las=1)
 barplot(table(gpus$DVI_Connection),main="Bar plot DVI Connection Variable",
@@ -313,7 +319,15 @@ barplot(table(gpus$DVI_Connection),main="Bar plot DVI Connection Variable",
         xlab = "# of ports", ylab ="# of instances",las=1)
 barplot(table(gpus$VGA_Connection),main="Bar plot VGA Connection Variable",
         xlab = "# of ports", ylab ="# of instances",las=1)
-  
+
+
+summary(gpus$HDMI_Connection)
+summary(gpus$DVI_Connection)
+summary(gpus$VGA_Connection)
+
+
+
+
 
 ########################################################################
 
