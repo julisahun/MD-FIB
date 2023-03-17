@@ -66,11 +66,23 @@ gpus[is.na(gpus$Architecture), c("Architecture")] <- "Unknown"
 
 
 #----------- INTEGRATED I DEDICATED -----------
-# We remove instances of GPUS that has an NA value in dedicated column
-gpus <- gpus[!is.na(gpus[,c("Dedicated")]),]
 # Transformation of columns Dedicated and Integrated to boolean types
 gpus$Dedicated <- (gpus$Dedicated == "Yes")
 gpus$Integrated <- (gpus$Integrated == "Yes")
+
+summary(gpus$Dedicated)
+summary(gpus$Integrated)
+barplot(table(gpus$Dedicated),main="Bar plot Dedicated Variable",
+        xlab = "# of ports", ylab ="# of instances",las=1)
+barplot(table(gpus$Integrated),main="Bar plot Integrated Variable",
+        xlab = "# of ports", ylab ="# of instances",las=1)
+
+# We remove instances of GPUS that has an NA value in dedicated column
+gpus <- gpus[!is.na(gpus[,c("Dedicated")]),]
+
+
+summary(gpus$Dedicated)
+summary(gpus$Integrated)
 
 
 #----------- BEST_RESOLUTION -----------
@@ -131,6 +143,18 @@ aux$L2_Cache_Mult <- gsub('\\(','',gsub('\\)','',gsub('x','', aux$L2_Cache_Mult)
 aux$L2_Cache_Mult <- as.numeric(aux$L2_Cache_Mult)
 aux$L2_Cache_Num <- as.numeric(aux$L2_Cache_Num)
 gpus$L2_Cache <- aux$L2_Cache_Num * aux$L2_Cache_Mult
+
+boxplot(table(gpus$L2_Cache), # Datos
+        horizontal = FALSE, # Horizontal o vertical
+        lwd = 2, # Lines width
+        main = "Boxplot L2 Cache", # Título
+        notch = FALSE, # Añade intervalos de confianza para la mediana
+        border = "black",  # Color del borde del boxplot
+        outpch = 25,       # Símbolo para los outliers
+        outbg = "red",   # Color de los datos atípicos
+        whisklty = 2,      # Tipo de línea para los bigotes
+        lty = 1) # Tipo de línea (caja y mediana)
+stripchart(gpus$L2_Cache, method = "jitter", pch = 19, add = TRUE, col = "blue")
 
 #----------- MEMORY_BANDWIDTH -----------
 sum(is.na(gpus$Memory_Bandwidth)) #82 nulls
@@ -324,9 +348,6 @@ barplot(table(gpus$VGA_Connection),main="Bar plot VGA Connection Variable",
 summary(gpus$HDMI_Connection)
 summary(gpus$DVI_Connection)
 summary(gpus$VGA_Connection)
-
-
-
 
 
 ########################################################################
