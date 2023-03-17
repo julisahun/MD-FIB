@@ -9,7 +9,7 @@ library(FactoMineR)
 library(factoextra)
 
 path <- "D:/uni/4r/MD-FIB/practica1/preprocessed_GPUs.csv"
-gpus <-
+gpus <- read.csv(path, header = T, sep = ",")
 numericBools <- gpus
 cols <- sapply(gpus, is.logical)
 numericBools[,cols] <- lapply(gpus[,cols], as.numeric)
