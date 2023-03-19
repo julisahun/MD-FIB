@@ -271,21 +271,54 @@ gpus[is.na(gpus[c("Resolution_H")]), c("Resolution_H")] <- getmode(aux$Resolutio
 #----------- SLI_CROSSFIRE -----------
 sum(is.na(gpus$SLI_Crossfire)) # 0 nulls
 gpus$SLI_Crossfire <- (gpus$SLI_Crossfire == "Yes")
+barplot(table(gpus$SLI_Crossfire),main="Bar plot SLI_Crossfire Variable",
+        xlab = "# of ports", ylab ="# of instances",las=1)
+summary(gpus$SLI_Crossfire)
 
 
 #----------- SHADER -----------
 sum(is.na(gpus$Shader)) # 98 nulls
+summary(gpus$Shader)
+barplot(table(gpus$Shader),main="Bar plot Shader Variable",
+        xlab = "Shader Version", ylab ="# of instances",las=1)
 gpus[is.na(gpus[c("Shader")]), c("Shader")] <- "Unknown"
 
 #----------- TMUs -----------
-sum(is.na(gpus$TMUs)) # 475 nulls
-aux <- gpus[!is.na(gpus[,c("TMUs")]),]
-gpus[is.na(gpus[c("TMUs")]), c("TMUs")] <- getmode(aux$TMUs) #mirar que fem
+sum(is.na(gpus$TMUs)) # 534 nulls
+summary(gpus$TMUs)
+barplot(table(gpus$TMUs),main="Bar plot TMUs Variable",
+        xlab = "TMU #", ylab ="# of instances",las=1)
+
+fullVariables<-c(2, 3, 4, 10, 12, 13, 14, 15, 16, 21, 22, 23, 25, 28, 29)
+aux<-gpus[,fullVariables]
+dim(aux)
+names(aux)
+
+aux1 <- aux[!is.na(gpus[,32]),]
+dim(aux1) 
+aux2 <- aux[is.na(gpus[,32]),]
+dim(aux2)
+
+RefValues<- gpus[!is.na(gpus[,32]),32]
+knn.values = knn(aux1,aux2,RefValues)   
+
+gpus[is.na(gpus[,32]),32] = as.numeric(as.character(knn.values))
+fullVariables<-c(fullVariables, 32)
+aux<-gpus[,fullVariables]
+
 
 #----------- TEXTURE_RATE -----------
 sum(is.na(gpus$Texture_Rate)) # 480 nulls
 gpus$Texture_Rate <- gsub(' GTexel/s','', gpus$Texture_Rate)
 gpus$Texture_Rate <- as.numeric(gpus$Texture_Rate)
+summary(gpus$Texture_Rate)
+h<-hist(gpus$Texture_Rate,
+        main="Histogram Texture_Rate feature",
+        xlab="Table Texture_Rate distribution",
+        col="grey",
+        freq=TRUE, 
+)
+text(h$mids, h$counts + 1, ifelse(h$counts == 0, "", h$counts))
 
 aux <- gpus[!is.na(gpus[,c("Texture_Rate")]),]
 gpus[is.na(gpus[c("Texture_Rate")]), c("Texture_Rate")] <- getmode(aux$Texture_Rate) #mirar que fem
