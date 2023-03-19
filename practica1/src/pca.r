@@ -11,8 +11,9 @@ library(factoextra)
 library(rgl)
 
 ## read data set
-setwd("D:/uni/4r/MD-FIB/practica1")
-gpus <- read.csv(data/preprocessed_GPUs.csv, header = T, sep = ",")
+current_path = rstudioapi::getActiveDocumentContext()$path 
+setwd(dirname(current_path))
+gpus <- read.csv("../data/preprocessed_GPUs.csv", header = T, sep = ",")
 
 ## cast boolean features (true, false) to numeric (1, 0)
 numericBools <- gpus

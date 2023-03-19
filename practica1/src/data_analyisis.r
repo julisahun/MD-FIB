@@ -1,5 +1,10 @@
 library(treemap)
 
+current_path = rstudioapi::getActiveDocumentContext()$path 
+setwd(dirname(current_path))
+
+gpus <- read.csv("../data/GPUS.csv", header = T, sep = ",")
+
 ############## CONFIGURATION ##############
 col_name <- "HDMI_Connection" # CHANGE
 col_values <- gpus$HDMI_Connection #CHANGE
