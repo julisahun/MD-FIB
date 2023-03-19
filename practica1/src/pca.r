@@ -19,6 +19,7 @@ gpus <- read.csv("../data/preprocessed_GPUs.csv", header = T, sep = ",")
 numericBools <- gpus
 cols <- sapply(gpus, is.logical)
 numericBools[,cols] <- lapply(gpus[,cols], as.numeric)
+etiq = names(gpus)
 
 ## extract only the numerical featues
 cols <- unlist(lapply(numericBools, is.numeric))
@@ -55,7 +56,7 @@ ggcorrplot(Phi)
 X<-Phi[,1]
 Y<-Phi[,2]
 
-plot(Psi[,1],Psi[,2],type="n",xlim=c(min(X,0),max(X,0)), ylim=c(-1,1))
+plot(psi[,1],psi[,2],type="n",xlim=c(min(X,0),max(X,0)), ylim=c(-1,1))
 axis(side=1, pos= 0, labels = F)
 axis(side=3, pos= 0, labels = F)
 axis(side=2, pos= 0, labels = F)
@@ -65,7 +66,7 @@ text(X,Y,labels=etiq,col="darkblue", cex=0.7)
 
 ## Display PCA data with manufacturer labels (not very interesting)
 varcat=factor(gpus$Manufacturer)
-plot(Psi[,1],Psi[,2],col=varcat)
+plot(psi[,1],psi[,2],col=varcat)
 axis(side=1, pos= 0, labels = F, col="darkgray")
 axis(side=3, pos= 0, labels = F, col="darkgray")
 axis(side=2, pos= 0, labels = F, col="darkgray")
@@ -75,7 +76,15 @@ legend("bottomleft",levels(factor(varcat)),pch=1,col=c(1,2), cex=0.6)
 
 ## Display PCA data with screen resolution labels (interesting)
 varcat=factor(gpus$Resolution_W)
-plot(Psi[,1],Psi[,2],col=varcat)
+plot(psi[,1],psi[,2],col=varcat)
+axis(side=1, pos= 0, labels = F, col="darkgray")
+axis(side=3, pos= 0, labels = F, col="darkgray")
+axis(side=2, pos= 0, labels = F, col="darkgray")
+axis(side=4, pos= 0, labels = F, col="darkgray")
+legend("bottomleft",levels(factor(varcat)),pch=1,col=c(1,2), cex=0.6)
+
+varcat=factor(gpus$Memory_Type)
+plot(psi[,1],psi[,2],col=varcat)
 axis(side=1, pos= 0, labels = F, col="darkgray")
 axis(side=3, pos= 0, labels = F, col="darkgray")
 axis(side=2, pos= 0, labels = F, col="darkgray")
