@@ -8,6 +8,7 @@ library(dplyr)
 library(naniar)
 library(readr)
 library(class)
+library(rstudioapi)
 
 ######### METHODS ############
 getmode <- function(v) {
@@ -16,8 +17,11 @@ getmode <- function(v) {
 }
 
 ######### IMPORT DATA ############
-path <- "/Users/mariamontalvofalcon/Desktop/MD-FIB/practica1/data/GPUS.csv"
-gpus <- read.csv(path, header = T, sep = ",")
+
+current_path = rstudioapi::getActiveDocumentContext()$path 
+setwd(dirname(current_path))
+
+gpus <- read.csv("../data/GPUS.csv", header = T, sep = ",")
 attach(gpus)
 names(gpus)
 
@@ -87,16 +91,16 @@ summary(gpus$Integrated)
 
 #----------- BEST_RESOLUTION -----------
 # We split the column of Best Resolution into two: 
-#Best_Resolution_X and Best_Resolution_Y
-gpus <- separate(data=gpus, col=Best_Resolution, into = c("Best_Resolution_X", "Best_Resolution_Y"), sep=" x ")
-gpus$Best_Resolution_X <- as.numeric(gpus$Best_Resolution_X)
-gpus$Best_Resolution_Y <- as.numeric(gpus$Best_Resolution_Y)
+#Best_Resolution_W and Best_Resolution_H
+gpus <- separate(data=gpus, col=Best_Resolution, into = c("Best_Resolution_W", "Best_Resolution_H"), sep=" x ")
+gpus$Best_Resolution_W <- as.numeric(gpus$Best_Resolution_W)
+gpus$Best_Resolution_H <- as.numeric(gpus$Best_Resolution_H)
 # els na els substituirem per la moda de la columna
 
-aux <- gpus[!is.na(gpus[,c("Best_Resolution_X")]),]
-gpus[is.na(gpus[c("Best_Resolution_X")]), c("Best_Resolution_X")] <- getmode(aux$Best_Resolution_X)
-aux <- gpus[!is.na(gpus[,c("Best_Resolution_Y")]),]
-gpus[is.na(gpus[c("Best_Resolution_Y")]), c("Best_Resolution_Y")] <- getmode(aux$Best_Resolution_Y)
+aux <- gpus[!is.na(gpus[,c("Best_Resolution_W")]),]
+gpus[is.na(gpus[c("Best_Resolution_W")]), c("Best_Resolution_W")] <- getmode(aux$Best_Resolution_W)
+aux <- gpus[!is.na(gpus[,c("Best_Resolution_H")]),]
+gpus[is.na(gpus[c("Best_Resolution_H")]), c("Best_Resolution_H")] <- getmode(aux$Best_Resolution_H)
 
 
 #----------- CORE_SPEED -----------
@@ -354,4 +358,4 @@ summary(gpus$VGA_Connection)
 
 # SAVING THE DATASET PREPROCESSED
 sum(is.na(gpus))
-write.table(gpus, file = "preprocessed_GPUs.csv", sep = ",", na = "NA", dec = ".", row.names = FALSE, col.names = TRUE)
+write.table(gpus, file = "data/preprocessed_GPUs.csv", sep = ",", na = "NA", dec = ".", row.names = FALSE, col.names = TRUE)

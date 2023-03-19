@@ -1,4 +1,4 @@
-"Architecture","Best_Resolution_X","Best_Resolution_Y","Core_Speed","DVI_Connection","Dedicated","Direct_X","HDMI_Connection","Integrated","L2_Cache","Manufacturer","Max_Power","Memory","Memory_Bandwidth","Memory_Bus","Memory_Speed","Memory_Type","Name","Notebook_GPU","Open_GL","PSU_Watt","PSU_Aamps","Pixel_Rate","Power_Connector","Process","ROPs","Release_Date","Resolution_W","Resolution_H","SLI_Crossfire","Shader","TMUs","Texture_Rate","VGA_Connection"
+"Architecture","Best_Resolution_W","Best_Resolution_H","Core_Speed","DVI_Connection","Dedicated","Direct_X","HDMI_Connection","Integrated","L2_Cache","Manufacturer","Max_Power","Memory","Memory_Bandwidth","Memory_Bus","Memory_Speed","Memory_Type","Name","Notebook_GPU","Open_GL","PSU_Watt","PSU_Aamps","Pixel_Rate","Power_Connector","Process","ROPs","Release_Date","Resolution_W","Resolution_H","SLI_Crossfire","Shader","TMUs","Texture_Rate","VGA_Connection"
 "Tesla G92b ",1920,1080,738,2,TRUE,"DX 10.0",0,FALSE,0,"Nvidia",141,1024,64,256,1000,"GDDR3","GeForce GTS 150",FALSE,"3.3",450,38,12,"None ",55,16,"
 01/03/2009",2560,1600,TRUE,"4",64,47,0
 "R600 XT ",1366,768,946.385551948052,2,TRUE,"DX 10",0,FALSE,0,"AMD",215,512,106,512,828,"GDDR3","Radeon HD 2900 XT 512MB",FALSE,"3.1",550,35,12,"None ",80,16,"
@@ -546,7 +546,7 @@
 "GCN 1.1 Mars PRO ",1600,900,620,2,TRUE,"DX 12.0",1,FALSE,256,"AMD",20,2048,64,128,1000,"GDDR5","Radeon HD 8750M",TRUE,"4.4",500,42,6,"Unknown",28,8,"
 26/02/2013",2560,1600,TRUE,"5",24,19,1
 "GCN 1.1 Mars XT ",1366,768,775,1,TRUE,"DX 12.0",1,FALSE,256,"AMD",150,1024,36,64,1125,"GDDR5","Radeon HD 8690M",TRUE,"4.4",500,42,7,"Unknown",28,8,"
-01/01/2013",2560,1600,FALSE,"5",24,20,1
+01/01/2013",2560,1600,FALSE,"5",24,20,0
 "GCN 1.1 Mars LE ",1366,768,650,1,TRUE,"DX 12.0",1,FALSE,256,"AMD",15,1024,32,128,1000,"DDR3","Radeon HD 8730M",TRUE,"4.4",500,42,6,"Unknown",28,8,"
 01/04/2013",4096,2160,TRUE,"5",24,17,1
 "GCN 1.1 Mars PRO ",1366,768,670,2,TRUE,"DX 12.0",1,FALSE,256,"AMD",20,2048,28.8,128,900,"DDR3","Radeon HD 8750M v2",TRUE,"4.4",500,42,7,"Unknown",28,8,"
@@ -1022,7 +1022,7 @@
 "Sandy Bridge ",1920,1080,946.385551948052,0,FALSE,"DX 10.1",0,TRUE,0,"Intel",150,2048,10.7,64,667,"DDR3","HD i7 2617M",TRUE,"Unknown",500,42,3,"Unknown",28,32,"
 20/02/2011",2560,1600,FALSE,"Unknown",64,5,1
 "GL40 ",1920,1080,946.385551948052,0,FALSE,"DX 10",0,TRUE,0,"Intel",150,2048,25.6,128,1175.53055640012,"Unknown","Intel GMA 4500M",TRUE,"Unknown",500,42,3,"Unknown",28,32,"
-01/10/2008",4096,2160,FALSE,"4",64,5,0
+01/10/2008",4096,2160,FALSE,"4",64,5,1
 "RV620 ",1920,1080,946.385551948052,0,TRUE,"DX 10",0,FALSE,0,"AMD",150,2048,25.6,64,1175.53055640012,"DDR2","Radeon HD 3100",TRUE,"2",500,42,3,"Unknown",28,32,"
 01/08/2008",2560,1600,FALSE,"4.1",64,5,0
 "R680 ",1920,1080,946.385551948052,2,TRUE,"DX 10.1",0,FALSE,0,"AMD",110,1024,108.8,256,1700,"GDDR3","Mobility Radeon HD 3870 x2",TRUE,"2",500,42,3,"Unknown",28,32,"
@@ -1318,7 +1318,7 @@
 "Unknown",1920,1080,946.385551948052,0,TRUE,"Unknown",0,FALSE,0,"AMD",150,2048,25.6,128,1175.53055640012,"Unknown","Mobility Radeon HD 4830",TRUE,"Unknown",500,42,3,"Unknown",28,32,"
 03/03/2009",2560,1600,FALSE,"Unknown",64,5,0
 "BeaverCreek ",1920,1080,946.385551948052,0,FALSE,"DX 11",0,TRUE,0,"AMD",150,2048,25.6,128,1175.53055640012,"DDR3","Radeon HD 6480G",TRUE,"4",500,42,3,"Unknown",28,32,"
-14/06/2011",4096,2160,FALSE,"5",64,5,0
+14/06/2011",4096,2160,FALSE,"5",64,5,1
 "RV730 ",1920,1080,946.385551948052,0,TRUE,"DX 10.1",0,FALSE,0,"AMD",150,1024,25.6,128,800,"GDDR3","Mobility Radeon HD 4670 1GB",TRUE,"3.3",500,42,3,"Unknown",28,32,"
 09/01/2009",2560,1600,FALSE,"4.1",64,5,0
 "RV710 ",1920,1080,946.385551948052,2,TRUE,"DX 10.1",0,FALSE,0,"AMD",12,512,11.2,64,700,"GDDR3","Mobility Radeon HD 4550",TRUE,"3.3",500,42,3,"Unknown",28,32,"
