@@ -8,6 +8,7 @@ library(dplyr)
 library(naniar)
 library(readr)
 library(class)
+library(rstudioapi)
 
 ######### METHODS ############
 getmode <- function(v) {
@@ -16,8 +17,11 @@ getmode <- function(v) {
 }
 
 ######### IMPORT DATA ############
-path <- "F:/FIB/optatives/MD-FIB/practica1/data/GPUS.csv"
-gpus <- read.csv(path, header = T, sep = ",")
+
+current_path = rstudioapi::getActiveDocumentContext()$path 
+setwd(dirname(current_path))
+
+gpus <- read.csv("../data/GPUS.csv", header = T, sep = ",")
 attach(gpus)
 names(gpus)
 
@@ -65,44 +69,27 @@ sum(is.na(gpus$Architecture))
 gpus[is.na(gpus$Architecture), c("Architecture")] <- "Unknown"
 
 
-
-
-
 #----------- INTEGRATED I DEDICATED -----------
 # Transformation of columns Dedicated and Integrated to boolean types
 gpus$Dedicated <- (gpus$Dedicated == "Yes")
 gpus$Integrated <- (gpus$Integrated == "Yes")
 
-summary(gpus$Dedicated)
-summary(gpus$Integrated)
-barplot(table(gpus$Dedicated),main="Bar plot Dedicated Variable",
-        xlab = "# of ports", ylab ="# of instances",las=1)
-barplot(table(gpus$Integrated),main="Bar plot Integrated Variable",
-        xlab = "# of ports", ylab ="# of instances",las=1)
-
 # We remove instances of GPUS that has an NA value in dedicated column
 gpus <- gpus[!is.na(gpus[,c("Dedicated")]),]
 
 
-summary(gpus$Dedicated)
-summary(gpus$Integrated)
-
-
 #----------- BEST_RESOLUTION -----------
 # We split the column of Best Resolution into two: 
-#Best_Resolution_X and Best_Resolution_Y
-gpus <- separate(data=gpus, col=Best_Resolution, into = c("Best_Resolution_X", "Best_Resolution_Y"), sep=" x ")
-gpus$Best_Resolution_X <- as.numeric(gpus$Best_Resolution_X)
-gpus$Best_Resolution_Y <- as.numeric(gpus$Best_Resolution_Y)
+#Best_Resolution_W and Best_Resolution_H
+gpus <- separate(data=gpus, col=Best_Resolution, into = c("Best_Resolution_W", "Best_Resolution_H"), sep=" x ")
+gpus$Best_Resolution_W <- as.numeric(gpus$Best_Resolution_W)
+gpus$Best_Resolution_H <- as.numeric(gpus$Best_Resolution_H)
 # els na els substituirem per la moda de la columna
 
-aux <- gpus[!is.na(gpus[,c("Best_Resolution_X")]),]
-gpus[is.na(gpus[c("Best_Resolution_X")]), c("Best_Resolution_X")] <- getmode(aux$Best_Resolution_X)
-aux <- gpus[!is.na(gpus[,c("Best_Resolution_Y")]),]
-gpus[is.na(gpus[c("Best_Resolution_Y")]), c("Best_Resolution_Y")] <- getmode(aux$Best_Resolution_Y)
-
-
-
+aux <- gpus[!is.na(gpus[,c("Best_Resolution_W")]),]
+gpus[is.na(gpus[c("Best_Resolution_W")]), c("Best_Resolution_W")] <- getmode(aux$Best_Resolution_W)
+aux <- gpus[!is.na(gpus[,c("Best_Resolution_H")]),]
+gpus[is.na(gpus[c("Best_Resolution_H")]), c("Best_Resolution_H")] <- getmode(aux$Best_Resolution_H)
 
 
 #----------- CORE_SPEED -----------
@@ -136,6 +123,7 @@ gpus$Memory <- as.numeric(gpus$Memory)
 aux <- gpus[!is.na(gpus[,c("Memory")]),]
 gpus[is.na(gpus[c("Memory")]), c("Memory")] <- getmode(aux$Memory)
 
+
 #----------- MANUFACTURER -----------
 sum(is.na(gpus$Manufacturer))
 length(unique(gpus$Manufacturer))
@@ -149,18 +137,6 @@ aux$L2_Cache_Mult <- as.numeric(aux$L2_Cache_Mult)
 aux$L2_Cache_Num <- as.numeric(aux$L2_Cache_Num)
 gpus$L2_Cache <- aux$L2_Cache_Num * aux$L2_Cache_Mult
 
-boxplot(table(gpus$L2_Cache), # Datos
-        horizontal = FALSE, # Horizontal o vertical
-        lwd = 2, # Lines width
-        main = "Boxplot L2 Cache", # Título
-        notch = FALSE, # Añade intervalos de confianza para la mediana
-        border = "black",  # Color del borde del boxplot
-        outpch = 25,       # Símbolo para los outliers
-        outbg = "red",   # Color de los datos atípicos
-        whisklty = 2,      # Tipo de línea para los bigotes
-        lty = 1) # Tipo de línea (caja y mediana)
-stripchart(gpus$L2_Cache, method = "jitter", pch = 19, add = TRUE, col = "blue")
-
 #----------- MEMORY_BANDWIDTH -----------
 sum(is.na(gpus$Memory_Bandwidth)) #82 nulls
 gpus$Memory_Bandwidth <- gsub('GB/sec','', gpus$Memory_Bandwidth)
@@ -168,7 +144,7 @@ gpus$Memory_Bandwidth <- as.numeric(gpus$Memory_Bandwidth)
 
 aux <- gpus[!is.na(gpus[,c("Memory_Bandwidth")]),]
 gpus[is.na (gpus[c("Memory_Bandwidth")]), c("Memory_Bandwidth")] <- getmode(aux$Memory_Bandwidth) 
-summary(gpus$Memory_Bandwidth)
+
 
 #----------- MEMORY_BUS -----------
 sum(is.na(gpus$Memory_Bus)) #30 nulls
@@ -177,7 +153,7 @@ gpus$Memory_Bus <- as.numeric(gpus$Memory_Bus)
 
 aux <- gpus[!is.na(gpus[,c("Memory_Bus")]),]
 gpus[is.na(gpus[c("Memory_Bus")]), c("Memory_Bus")] <- getmode(aux$Memory_Bus)
-summary(gpus$Memory_Bus)
+
 
 #----------- MEMORY_SPEED -----------
 sum(is.na(gpus$Memory_Speed)) #73 nulls
@@ -186,7 +162,7 @@ gpus$Memory_Speed <- as.numeric(gpus$Memory_Speed)
 
 aux <- gpus[!is.na(gpus[,c("Memory_Speed")]),]
 gpus[is.na(gpus[c("Memory_Speed")]), c("Memory_Speed")] <- mean(aux$Memory_Speed)
-summary(gpus$Memory_Speed)
+
 
 #----------- MEMORY_TYPE -----------
 sum(is.na(gpus$Memory_Type)) #23 nulls
@@ -219,6 +195,7 @@ gpus$PSU_Amps <- as.numeric(gpus$PSU_Amps)
 aux <- gpus[!is.na(gpus[,c("PSU_Amps")]),]
 gpus[is.na(gpus[c("PSU_Amps")]), c("PSU_Amps")] <- median(aux$PSU_Amps)
 
+
 #----------- PIXEL_RATE -----------
 sum(is.na(gpus$Pixel_Rate)) #480 nulls
 gpus$Pixel_Rate <- gsub(' GPixel/s','', gpus$Pixel_Rate)
@@ -226,7 +203,7 @@ gpus$Pixel_Rate <- as.numeric(gpus$Pixel_Rate)
 
 aux <- gpus[!is.na(gpus[,c("Pixel_Rate")]),]
 gpus[is.na(gpus[c("Pixel_Rate")]), c("Pixel_Rate")] <- getmode(aux$Pixel_Rate)
-summary(gpus$Pixel_Rate)
+
 #----------- POWER_CONNECTOR -----------
 sum(is.na(gpus$Power_Connector)) # 709 nulls
 gpus$Power_Connector <- gsub('None ','None', gpus$Power_Connector)
@@ -239,7 +216,7 @@ gpus$Process <- as.numeric(gpus$Process)
 
 aux <- gpus[!is.na(gpus[,c("Process")]),]
 gpus[is.na(gpus[c("Process")]), c("Process")] <- getmode(aux$Process)
-summary(gpus$Process)
+
 #----------- ROPs -----------
 sum(is.na(gpus$ROPs)) #475 nulls
 aux <- separate(data=gpus, col=ROPs, into = c("ROPs_Num", "ROPs_Mult"), sep=" ")
@@ -252,7 +229,7 @@ gpus$ROPs <- aux$ROPs_Num * aux$ROPs_Mult
 aux <- gpus[!is.na(gpus[,c("ROPs")]),]
 gpus[is.na(gpus[c("ROPs")]), c("ROPs")] <- getmode(aux$ROPs) 
 
-summary(gpus$ROPs)
+
 
 
 #----------- RESOLUTION_WXH -----------
@@ -268,6 +245,7 @@ gpus[is.na(gpus[c("Resolution_W")]), c("Resolution_W")] <- getmode(aux$Resolutio
 aux <- gpus[!is.na(gpus[,c("Resolution_H")]),]
 gpus[is.na(gpus[c("Resolution_H")]), c("Resolution_H")] <- getmode(aux$Resolution_H)
 
+
 #----------- SLI_CROSSFIRE -----------
 sum(is.na(gpus$SLI_Crossfire)) # 0 nulls
 gpus$SLI_Crossfire <- (gpus$SLI_Crossfire == "Yes")
@@ -278,9 +256,21 @@ sum(is.na(gpus$Shader)) # 98 nulls
 gpus[is.na(gpus[c("Shader")]), c("Shader")] <- "Unknown"
 
 #----------- TMUs -----------
-sum(is.na(gpus$TMUs)) # 475 nulls
-aux <- gpus[!is.na(gpus[,c("TMUs")]),]
-gpus[is.na(gpus[c("TMUs")]), c("TMUs")] <- getmode(aux$TMUs) #mirar que fem
+sum(is.na(gpus$TMUs)) # 534 nulls
+
+fullVariables<-c(2, 3, 4, 10, 12, 13, 14, 15, 16, 21, 22, 23, 25, 28, 29)
+aux<-gpus[,fullVariables]
+
+aux1 <- aux[!is.na(gpus[,32]),]
+aux2 <- aux[is.na(gpus[,32]),]
+
+RefValues<- gpus[!is.na(gpus[,32]),32]
+knn.values = knn(aux1,aux2,RefValues)   
+
+gpus[is.na(gpus[,32]),32] = as.numeric(as.character(knn.values))
+fullVariables<-c(fullVariables, 32)
+aux<-gpus[,fullVariables]
+
 
 #----------- TEXTURE_RATE -----------
 sum(is.na(gpus$Texture_Rate)) # 480 nulls
@@ -289,7 +279,6 @@ gpus$Texture_Rate <- as.numeric(gpus$Texture_Rate)
 
 aux <- gpus[!is.na(gpus[,c("Texture_Rate")]),]
 gpus[is.na(gpus[c("Texture_Rate")]), c("Texture_Rate")] <- getmode(aux$Texture_Rate) #mirar que fem
-summary(gpus$Texture_Rate)
 
 #----------- REALESE_DATE -----------
 # replace "Unknown Release Date" with NA
@@ -299,31 +288,16 @@ tmp <- parse_datetime(gpus$Release_Date, format="%d/%m/%Y")
 gpus$Release_Date <- as.Date(tmp)
 aux <- gpus[!is.na(gpus[,c("Release_Date")]),]
 gpus[is.na(gpus[c("Release_Date")]), c("Release_Date")] <- getmode(aux$Release_Date)
-summary(gpus$Release_Date)
+
 
 #----------- PORTS CONNECTIONS -----------
 sum(is.na(gpus$HDMI_Connection))
 sum(is.na(gpus$DVI_Connection))
 sum(is.na(gpus$VGA_Connection))
 
-summary(gpus$HDMI_Connection)
-summary(gpus$DVI_Connection)
-summary(gpus$VGA_Connection)
-
-
-barplot(table(gpus$HDMI_Connection),main="Bar plot HDMI Connection Variable",
-        xlab = "# of ports", ylab ="# of instances",las=1)
-barplot(table(gpus$DVI_Connection),main="Bar plot DVI Connection Variable",
-        xlab = "# of ports", ylab ="# of instances",las=1)
-barplot(table(gpus$VGA_Connection),main="Bar plot VGA Connection Variable",
-        xlab = "# of ports", ylab ="# of instances",las=1)
-
-
 uncompleteVars<-c(5,8,34)
 fullVariables<-c(2, 3, 4, 10, 12, 13, 14, 15, 16, 21, 22, 23, 25, 28, 29, 32, 33)
 aux<-gpus[,fullVariables]
-dim(aux)
-names(aux)
 
 for (k in uncompleteVars){
   aux1 <- aux[!is.na(gpus[,k]),]
@@ -339,23 +313,10 @@ for (k in uncompleteVars){
   aux<-gpus[,fullVariables]
 }
 
-sum(is.na(gpus$HDMI_Connection))
-sum(is.na(gpus$DVI_Connection))
-sum(is.na(gpus$VGA_Connection))
-barplot(table(gpus$HDMI_Connection),main="Bar plot HDMI Connection Variable",
-        xlab = "# of ports", ylab ="# of instances",las=1)
-barplot(table(gpus$DVI_Connection),main="Bar plot DVI Connection Variable",
-        xlab = "# of ports", ylab ="# of instances",las=1)
-barplot(table(gpus$VGA_Connection),main="Bar plot VGA Connection Variable",
-        xlab = "# of ports", ylab ="# of instances",las=1)
 
-
-summary(gpus$HDMI_Connection)
-summary(gpus$DVI_Connection)
-summary(gpus$VGA_Connection)
 
 ########################################################################
 
 # SAVING THE DATASET PREPROCESSED
 sum(is.na(gpus))
-write.table(gpus, file = "preprocessed_GPUs.csv", sep = ",", na = "NA", dec = ".", row.names = FALSE, col.names = TRUE)
+write.table(gpus, file = "data/preprocessed_GPUs.csv", sep = ",", na = "NA", dec = ".", row.names = FALSE, col.names = TRUE)
