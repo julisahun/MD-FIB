@@ -319,4 +319,4 @@ for (k in uncompleteVars){
 
 # SAVING THE DATASET PREPROCESSED
 sum(is.na(gpus))
-write.table(gpus, file = "data/preprocessed_GPUs.csv", sep = ",", na = "NA", dec = ".", row.names = FALSE, col.names = TRUE)
+write.table(gpus, file = "../data/preprocessed_GPUs.csv", sep = ",", na = "NA", dec = ".", row.names = FALSE, col.names = TRUE)
