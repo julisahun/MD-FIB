@@ -143,8 +143,8 @@ library(cluster)
 
 #dissimilarity matrix
 
-actives<-c(2:16)
-dissimMatrix <- daisy(dd[,actives], metric = "gower", stand=TRUE)
+
+dissimMatrix <- daisy(numericGpu, metric = "gower", stand=TRUE)
 
 distMatrix<-dissimMatrix^2
 
