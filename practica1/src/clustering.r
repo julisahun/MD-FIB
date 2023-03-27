@@ -2,15 +2,22 @@ library(cluster)
 library(factoextra)
 current_path = rstudioapi::getActiveDocumentContext()$path 
 setwd(dirname(current_path))
-gpus <- read.csv("../data/preprocessed_GPUS.csv", header = T, sep = ",");
+gpus <- read.csv("../data/preprocessed_GPUs.csv", header = T, sep = ",");
 
 #create plot of number of clusters vs total within sum of squares
-set.seed(1)
 names(gpus)
 dim(gpus)
 summary(gpus)
 attach(gpus)
-
+sum(gpus$Manufacturer == 'ATI')
+sum(gpus$Manufacturer == 'Nvidia')
+sum(gpus$Manufacturer == 'Intel')
+sum(gpus$Manufacturer == 'AMD')
+gpus$Manufacturer = as.numeric(unclass(as.factor(gpus$Manufacturer)))
+sum(gpus$Manufacturer == 1) # -> AMD
+sum(gpus$Manufacturer == 2) # -> ATI
+sum(gpus$Manufacturer == 3) # -> Intel
+sum(gpus$Manufacturer == 4) # -> Nvidia
 
 numericBools <- gpus
 cols <- sapply(gpus, is.logical)
@@ -19,6 +26,7 @@ numericBools[,cols] <- lapply(gpus[,cols], as.numeric)
 ## extract only the numerical featues
 cols <- unlist(lapply(numericBools, is.numeric))
 numericGpu <- numericBools[,cols]
+names(numericGpu)
 
 scaledGpus <- scale(numericGpu)
 
@@ -26,29 +34,39 @@ scaledGpus <- scale(numericGpu)
 # CLUSTERING
 #
 
-fviz_nbclust(scaledGpus, kmeans, method = "wss")
+#fviz_nbclust(scaledGpus, kmeans, method = "wss") #= 4
 
+d  <- dist(scaledGpus[1:50,])
+h1 <- hclust(d,method="ward.D")  # NOTICE THE COST
+plot(h1)
+
+d  <- dist(scaledGpus)
+h1 <- hclust(d,method="ward.D")  # NOTICE THE COST
+plot(h1)
 
 # KMEANS RUN, BUT HOW MANY CLASSES?
-k<-4
-k1 <- kmeans(scaledGpus,k)
-names(scaledGpus)
-print(k1)
 
-attributes(k1)
+k4 <- kmeans(scaledGpus,4)
+k2 <- kmeans(scaledGpus,2)
+print(k4)
+print(k2)
 
-k1$size
+k4$size
+k2$size
 
-k1$withinss
+sum(numericGpu["Dedicated"] == 0) == k4$size[3] #ops
 
-k1$centers
+k4$withinss #the lower the better
 
-Bss <- sum(rowSums(k1$centers^2)*k1$size)
-Bss
-Wss <- sum(k1$withinss)
+k4$centers 
+k2$centers
+
+k4$betweenss #the higher the better
+
+
+Bss <- k4$betweenss
+Wss <- sum(k4$withinss)
 Wss
-Tss <- k1$totss
-Tss
 
 Bss+Wss
 
@@ -57,138 +75,54 @@ Ib1
 
 ############################################################
 
-k2$centers
-k1$centers
+plot(k4$centers[,3],k4$centers[,2])
 
-plot(k1$centers[,3],k1$centers[,2])
-
-table(k1$cluster, k2$cluster)
+table(k4$cluster)
 
 
 # HIERARCHICAL CLUSTERING
 
-d  <- dist(scaledGpus[1:50,])
-h1 <- hclust(d,method="ward.D")  # NOTICE THE COST
-plot(h1)
+nc = 4
+c4 <- cutree(h1,nc)
+c4
 
-d  <- dist(scaledGpus)
-h1 <- hclust(d,method="ward")  # NOTICE THE COST
-plot(h1)
-
-# BUT WE ONLY NEED WHERE THERE ARE THE LEAPS OF THE HEIGHT
-
-# WHERE ARE THER THE LEAPS? WHERE WILL YOU CUT THE DENDREOGRAM?, HOW MANY CLASSES WILL YOU OBTAIN?
-
-nc = 3
-
-c1 <- cutree(h1,nc)
-
-c1[1:20]
-
-nc = 5
-
-c5 <- cutree(h1,nc)
-
-c5[1:20]
-
-
-table(c1)
-table(c5)
-table(c1,c5)
-
-
-cdg <- aggregate(as.data.frame(scaledGpus),list(c1),mean)
+cdg <- aggregate(as.data.frame(scaledGpus),list(c4),mean)
 cdg
 
-plot(cdg[,1], cdg[,7])
+plot(cdg[,3], cdg[,6])
 
 # LETS SEE THE PARTITION VISUALLY
 
+plot(Dedicated,col=c4,main="Clustering of Dedicated feature data in 4 classes")
+legend("right",c("class1","class2", "class3", "class4"),pch=1,col=c(1:4),cex=1.6)
 
-plot(Edad,Estalvi,col=c1,main="Clustering of credit data in 3 classes")
-legend("topright",c("class1","class2","class3"),pch=1,col=c(1:3))
+Manufacturer = gpus$Manufacturer
+plot(Manufacturer,col=c4,main="Clustering of Dedicated feature data in 4 classes")
+legend("right",c("class1","class2", "class3", "class4"),pch=1,col=c(1:4),cex=1.6)
 
 
+plot(Texture_Rate,Pixel_Rate, col=c1,main="Clustering of TextureRate and PixelRate data in 4 classes")
+legend("topright",c("class1","class2","class3", "class4"),pch=1,col=c(1:4), cex=1.6)
 
-plot(RatiFin,Estalvi)
-plot(RatiFin,Estalvi,col=c1,main="Clustering of credit data in 3 classes")
-legend("topright",c("class1","class2","class3"),pch=1,col=c(1:3), cex=0.6)
+pairs(scaledGpus[,1:7], col=c4)
 
-plot(Antiguedad.Trabajo,Estalvi,col=c1,main="Clustering of credit data in 3 classes")
-legend("topright",c("class1","class2","class3"),pch=1,col=c(1:3), cex=0.6)
-plot(Patrimonio, Ingresos,col=c1,main="Clustering of credit data in 3 classes")
-legend("topright",c("class1","class2","class3"),pch=1,col=c(1:3), cex=0.6)
-plot(Patrimonio, Antiguedad.Trabajo,col=c1,main="Clustering of credit data in 3 classes")
-legend("topright",c("class1","class2","class3"),pch=1,col=c(1:3), cex=0.6)
-
-pairs(scaledGpus[,1:7], col=c1)
-
-#plot(FI[,1],FI[,2],col=c1,main="Clustering of credit data in 3 classes")
-#legend("topleft",c("c1","c2","c3"),pch=1,col=c(1:3))
 
 # LETS SEE THE QUALITY OF THE HIERARCHICAL PARTITION
 
 
-
-Bss <- sum(rowSums(cdg^2)*as.numeric(table(c1)))
-
-Ib4 <- 100*Bss/Tss
-Ib4
-
-
-#move to Gower mixed distance to deal 
-#simoultaneously with numerical and qualitative data
-
-library(cluster)
-
-#dissimilarity matrix
-
-
 dissimMatrix <- daisy(numericGpu, metric = "gower", stand=TRUE)
-
 distMatrix<-dissimMatrix^2
-
-h1 <- hclust(distMatrix,method="ward.D")  # NOTICE THE COST
-#versions noves "ward.D" i abans de plot: par(mar=rep(2,4)) si se quejara de los margenes del plot
-
+h1 <- hclust(distMatrix,method="ward.D")
 plot(h1)
 
-c2 <- cutree(h1,4)
 
-#class sizes 
-table(c2)
+#memory
+boxplot(scaledGpus[,11]~c4, horizontal=TRUE, main="Memory feature distribution")
 
-#comparing with other partitions
-table(c1,c2)
+#L2_cache
+boxplot(scaledGpus[,8]~c4, horizontal=TRUE, main="L2_Cache feature distribution")
 
-
-names(dd)
-#ratiFin
-boxplot(dd[,16]~c2, horizontal=TRUE)
-
-#plazo
-boxplot(dd[,4]~c2, horizontal=TRUE)
-
-#gastos
-boxplot(dd[,9]~c2, horizontal=TRUE)
-
-pairs(scaledGpus[,1:7], col=c2)
-
-plot(RatiFin,Estalvi,col=c2,main="Clustering of credit data in 3 classes")
-legend("topright",levels(c2),pch=1,col=c(1:4), cex=0.6)
-
-cdg <- aggregate(as.data.frame(scaledGpus),list(c2),mean)
-cdg
-
-plot(Edad, Gastos, col= c2)
-points(cdg[,4],cdg[,5],pch=16,col="orange")
-text(cdg[,4],cdg[,5], labels=cdg[,1], pos=2, font=2, cex=0.7, col="orange")
-
-potencials<-c(3,4,6,7,10,11)
-pairs(scaledGpus[,potencials],col=c2)
-
-#Profiling plots
-
-scaledGpus <- scale(scaledGpus)
+#Manufacturer
+boxplot(numericGpu[,9]~c4, horizontal=TRUE, main="Manufacturer feature distribution")
 
 
