@@ -44,7 +44,10 @@ plot(h1)
 
 d  <- dist(scaledGpus)
 h1 <- hclust(d,method="ward.D")  # NOTICE THE COST
-
+suppressPackageStartupMessages(library(dendextend))
+avg_dend_obj <- as.dendrogram(h1)
+avg_col_dend <- color_branches(avg_dend_obj, h = 4, k=4)
+plot(avg_col_dend)
 
 # KMEANS RUN, BUT HOW MANY CLASSES?
 
