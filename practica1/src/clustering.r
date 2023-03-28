@@ -2,7 +2,9 @@ library(cluster)
 library(factoextra)
 current_path = rstudioapi::getActiveDocumentContext()$path 
 setwd(dirname(current_path))
-gpus <- read.csv("../data/preprocessed_GPUs.csv", header = T, sep = ",");
+gpus <- read.csv("../data/preprocessed_GPUs.csv", header = T, sep = ",")
+
+set.seed(1)
 
 #create plot of number of clusters vs total within sum of squares
 names(gpus)
@@ -42,7 +44,7 @@ plot(h1)
 
 d  <- dist(scaledGpus)
 h1 <- hclust(d,method="ward.D")  # NOTICE THE COST
-plot(h1)
+
 
 # KMEANS RUN, BUT HOW MANY CLASSES?
 
@@ -58,7 +60,7 @@ sum(numericGpu["Dedicated"] == 0) == k4$size[3] #ops
 
 k4$withinss #the lower the better
 
-k4$centers 
+k4$centers
 k2$centers
 
 k4$betweenss #the higher the better
@@ -77,7 +79,7 @@ Ib1
 
 plot(k4$centers[,3],k4$centers[,2])
 
-table(k4$cluster)
+table(k2$cluster)
 
 
 # HIERARCHICAL CLUSTERING
