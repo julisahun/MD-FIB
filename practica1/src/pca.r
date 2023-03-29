@@ -25,6 +25,12 @@ etiq = names(gpus)
 cols <- unlist(lapply(numericBools, is.numeric))
 numericGpu <- numericBools[,cols]
 nFeatures = dim(numericGpu)[2]
+ze = rep(0,length(etiq)) # WE WILL NEED THIS VECTOR AFTERWARDS FOR THE GRAPHICS
+num_etiq = names(numericGpu)
+## extract only the categorical featues
+cols <- unlist(lapply(gpus, is.character))
+categoricalGpu <- gpus[,cols]
+cat_etiq = names(categoricalGpu)
 
 ## normalise data
 normalizedGpus <- scale(numericGpu)
@@ -61,7 +67,43 @@ axis(side=1, pos= 0, labels = F)
 axis(side=3, pos= 0, labels = F)
 axis(side=2, pos= 0, labels = F)
 axis(side=4, pos= 0, labels = F)
-text(X,Y,labels=etiq,col="darkblue", cex=0.7)
+arrows(ze, ze, X, Y, length = 0.07,col="lightgray")
+text(X,Y,labels=num_etiq,col="darkblue", cex=0.7)
+
+# Show categorical
+colors<-rainbow(length(categoricalGpu))
+zec = rep(0,length(categoricalGpu)) 
+c<-1
+for(k in categoricalGpu){
+  seguentColor<-colors[c]
+  fdic1 = tapply(psi[,1],k,mean)
+  fdic2 = tapply(psi[,2],k,mean) 
+  #arrows(zec, zec, fdic1, fdic2, length = 0.07,col="lightgray") # infinite arrows
+  text(fdic1,fdic2,labels=levels(factor(k)),col=seguentColor, cex=0.6)
+  c<-c+1
+}
+legend("bottomleft",names(categoricalGpu),pch=1,col=colors, cex=0.6)
+
+## Zoomout all qualitative together
+plot(psi[,1],psi[,2],type="n")
+axis(side=1, pos= 0, labels = F, col="cyan")
+axis(side=3, pos= 0, labels = F, col="cyan")
+axis(side=2, pos= 0, labels = F, col="cyan")
+axis(side=4, pos= 0, labels = F, col="cyan")
+
+colors<-rainbow(length(categoricalGpu))
+zec = rep(0,length(categoricalGpu)) 
+c<-1
+for(k in categoricalGpu){
+  seguentColor<-colors[c]
+  fdic1 = tapply(psi[,1],k,mean)
+  fdic2 = tapply(psi[,2],k,mean) 
+  #arrows(zec, zec, fdic1, fdic2, length = 0.07,col="lightgray")
+  text(fdic1,fdic2,labels=levels(factor(k)),col=seguentColor, cex=0.6)
+  c<-c+1
+}
+legend("bottomleft",names(categoricalGpu),pch=1,col=colors, cex=0.6)
+
 
 
 ## Display PCA data with manufacturer labels (not very interesting)
