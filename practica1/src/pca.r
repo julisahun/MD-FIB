@@ -25,8 +25,9 @@ etiq = names(gpus)
 cols <- unlist(lapply(numericBools, is.numeric))
 numericGpu <- numericBools[,cols]
 nFeatures = dim(numericGpu)[2]
-ze = rep(0,length(etiq)) # WE WILL NEED THIS VECTOR AFTERWARDS FOR THE GRAPHICS
+
 num_etiq = names(numericGpu)
+ze = rep(0,length(num_etiq)) # WE WILL NEED THIS VECTOR AFTERWARDS FOR THE GRAPHICS
 ## extract only the categorical featues
 cols <- unlist(lapply(gpus, is.character))
 categoricalGpu <- gpus[,cols]
