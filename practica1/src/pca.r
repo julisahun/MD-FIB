@@ -92,6 +92,9 @@ axis(side=3, pos= 0, labels = F, col="cyan")
 axis(side=2, pos= 0, labels = F, col="cyan")
 axis(side=4, pos= 0, labels = F, col="cyan")
 
+categoricalGpu$Name <- NULL
+categoricalGpu$Release_Date <- NULL
+categoricalGpu$Architecture <- NULL
 colors<-rainbow(length(categoricalGpu))
 zec = rep(0,length(categoricalGpu)) 
 c<-1
@@ -99,7 +102,7 @@ for(k in categoricalGpu){
   seguentColor<-colors[c]
   fdic1 = tapply(psi[,1],k,mean)
   fdic2 = tapply(psi[,2],k,mean) 
-  #arrows(zec, zec, fdic1, fdic2, length = 0.07,col="lightgray")
+  arrows(zec, zec, fdic1, fdic2, length = 0.07,col="lightgray")
   text(fdic1,fdic2,labels=levels(factor(k)),col=seguentColor, cex=0.6)
   c<-c+1
 }
